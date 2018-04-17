@@ -1,0 +1,159 @@
+<% provide(:title, "Category") %>
+<div id="page-wrapper" class="gray-bg">
+	<%= render "admin/includes/header" %>
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2></h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= admin_dashboard_url %>">Dashboard</a>
+        </li>
+        <li>
+			<a href="<%= admin_category_list_url %>">Manage Category</a>
+		</li>
+		<li class="active">
+			<strong>Update Category</strong>
+		</li>
+      </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Update Category</h5>
+                        </div>
+                        <div class="ibox-content">
+                          <%= form_for(:category, url: admin_update_category_url(:cat_id => Base64.encode64(@cat_id.to_s)) ,:html=>{:class=>"form-horizontal",:name=>'frm_category',:id=>'frm_category'}) do |f| %>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Category Name(English)<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.text_field :category_name, class: 'form-control', :value => @categories[0].category_name, id: 'category_name' %>
+                            </div>
+                          </div>
+                           <div class="hr-line-dashed"></div>
+                           <div class="form-group">
+                            <label class="col-sm-2 control-label">Category Name(Chinese)<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.text_field :category_name_ch, class: 'form-control', :value => @categories[0].category_name_ch, id: 'category_name_ch' %>
+                            </div>
+                          </div>
+                          <!-- <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Parent Category:</label>
+                            <div class="col-sm-10">
+                              <% if @categories.blank? == false then %>
+                                <%= f.select :parent_id, options_for_select(@categories.all.map{|p| [p.category_name, p.id]}), {:include_blank => "No Parent"}, {:class=>"form-control"}%>
+                              <%  else %>
+                                <%= f.select :parent_id,options_for_select([['Select Category', ''], ['No Parent', "0"]]) ,{},{:class => 'form-control'} %>
+                              <%  end %>
+                            </div>
+                          </div> -->
+                          <div class="hr-line-dashed"></div>
+                          <% if @categories[0].category_icon.blank? == false %>
+                          <div class="form-group">
+                              <label class="col-sm-2 control-label">Previous Category Icon:</label>
+                              <div class="col-sm-10">
+                                <%= image_tag("/category_icon/"+(@categories[0].category_icon) ,:alt => "category_icon",:width => "200") %>
+                              </div>
+                            </div>
+                          <% end %>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Category Icon<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.file_field :cat_icon, class: 'form-control', :id => 'cat_icon' %>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                              <%= f.submit "Save Changes", class: "btn btn-primary",id:"btnSubmit" %>
+                              <%= f.hidden_field :frm_type,  :value => 'edit' %>
+                              <%= f.hidden_field :old_name,  :value => @categories[0].category_name %>
+                            </div>
+                          </div>
+                        <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	</div>
+	<%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+	$(document).ready(function(){
+    $("#frm_category").validate({
+      onkeyup: false,
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'category[category_name]': {
+          required : true,
+          maxlength: 15,
+          remote:{
+          url: "<%= admin_check_category_name_url %>",
+          type: "get",
+          data:{
+            'category[type]':jQuery("#category_frm_type").val(),
+            'category[old_category_name]':jQuery('#category_old_name').val()
+                    }
+              }
+        },
+        'category[category_name_ch]': {
+          required : true,
+          maxlength: 15 
+          // remote:{
+          // url: "<%= admin_check_category_name_url %>",
+          // type: "get",
+          // data:{
+          //   'category[type]':jQuery("#category_frm_type").val(),
+          //   'category[old_category_name]':jQuery('#category_old_name').val()
+          //           }
+          //     }
+        },
+        <% if @categories.blank? == true then %>
+        'user[parent_id]': {
+          required : true
+        },
+        <% end %>
+        'category[cat_icon]': {
+          // required : true,
+          accept : "jpg|jpeg|png|bmp|gif|tiff"
+        }
+     },
+     messages: {
+      'category[category_name]': {
+        required: "Please enter category name.",
+        remote: "Entered category already exist, please try another.",
+        maxlength: "Category name should be less than 15 characters"
+      },
+      'category[category_name_ch]': {
+        required: "Please enter category name.",
+        maxlength: "Category name should be less than 15 characters"
+        // remote: "Entered category already exist, please try another."
+      },
+      <% if @categories.blank? == true then %>
+        'user[parent_id]': {
+          required: "Please select category type."
+        },
+        <% end %>
+      'category[cat_icon]': {
+        // required: "Please select category icon.",
+        accept : "Please select valid image type"
+      }
+   },
+   submitHandler: function(form) {
+				// do other things for a valid form
+        $('#btnSubmit').attr("disabled","disabled");
+        $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+        form.submit();
+        return true;
+    }
+  });
+  });
+</script>

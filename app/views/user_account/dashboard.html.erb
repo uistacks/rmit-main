@@ -1,0 +1,400 @@
+<% provide(:title, t("dashboard")) %>
+<style type="text/css">
+  .avatar-source img, .btn-upload {
+    width: 120px;
+}
+.avatar-source, .avatar-wrapper, .btn-upload {
+    text-align: center;
+}
+.btn-upload {
+    border-radius: 50%;
+    color: #ccc;
+    font-size: 65px;
+    height: 120px;
+    overflow: hidden;
+    padding: 6px 0;
+    position: relative;
+}
+.btn-circle, .btn-upload {
+    line-height: 1.42857;
+}
+.btn-default {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+}
+.btn-upload input[type="file"] {
+    background: #fff none repeat scroll 0 0;
+    cursor: inherit;
+    display: block;
+    font-size: 100px;
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    outline: 0 none;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+.avatar-source p {
+    font-weight: 700;
+    margin: 5px 0 0;
+}
+.avatar-source div:hover, .avatar-source img:hover {
+    background-color: #fff;
+    border: 2px solid #555;
+    cursor: pointer;
+}
+.avatar-controls {
+    display: none;
+}
+.avatar-wrapper .avatar-preview {
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+.avatar-preview {
+    height: 160px;
+    width: 160px;
+}
+#choose-modal .modal-dialog {
+  margin: 30px auto;
+  width: 600px;
+  z-index: 9999;
+}
+</style>
+<section class="dashboard-middle-sec">
+    <div class="dash-left-sec">
+		<div class="dash-left-cross">
+			<a href="javascript:void(0)" class="btn btn-slideright" "=""><span class="i-cross"></span></a>
+		</div>
+        <ul class="left-menu-list">
+            <li><a href="#" class="active" title="<%= t("dashboard") %>"><span class="i-house"> </span></a></li>
+            <li> <a href="<%= edit_user_email_url(:user_id => Base64.encode64(@userdata.id.to_s)) %>" title="<%= t("account_setting") %>"><span class="i-cogwheel"> </span></a></li>
+            <li><a href="<%= edit_profile_url(:user_id => Base64.encode64(@userdata.id.to_s)) %>" title="<%= t("edit_profile") %>"><span class="i-interface"></span></a></li>
+             <li><a href="<%= user_order_url %>" title="<%= t("my_order") %>" ><span class="fa fa-table"></span></a></li>
+            <% if @userdata.trans_user_informations.user_type == "2" %>
+            <!-- <li><a href="#"><span class="i-tool2"></span></a></li> -->
+             <!-- <li><a href="<%= user_order_url %>" title="<%= t("my_order") %>" ><span class="fa fa-table"></span></a></li> -->
+            <% elsif @userdata.trans_user_informations.user_type == "3" %>
+            <li><a href="<%= sale_chart_url %>" title="<%= t("sales_performance") %>" ><span class="i-business-12"></span></a></li>
+            <li><a href="<%= promoter_wallet_url %>" title="<%= t("my_wallet") %>" ><span class="fa fa-usd"></span></a></li>
+            <% end %>
+            <li><a href="<%= user_transactions_url %>" title="<%= t("transaction_history") %>" ><span class="fa fa-money"></span></a></li>
+        </ul>
+    </div>
+    <div class="dash-right-sec">
+        <div class="common-right-sec">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-12">
+                    <!--<div class="change-profile-img-sec">-->
+                        <!--<div class="profile-top-sec">-->
+                            <!--<div class="bg-prof avatar-wrapper">-->
+                                <!--<% if @userdata.trans_user_informations.profile_picture.blank? == false %>-->
+                                <!--<%= image_tag("front/img/"+@userdata.trans_user_informations.profile_picture, :alt => "image", :width => "100") %>-->
+                                <!--<% else %>-->
+                                <!--<%= image_tag("front/img/default-user-image.png", :class =>"", :alt => "image", :width => "100") %>-->
+                                <!--<% end %> -->
+								              <!--<div class="edit-icon">-->
+                              		<!--<a href="#" data-toggle="modal" data-target="#choose-modal"><i class="fa fa-pencil"></i></a>-->
+                          		<!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="ttl-chng-img">-->
+                            <!--</div>-->
+                      <!--</div>    -->
+                  <!--</div>-->
+                  <%= form_for(:update_photo, url: update_photo_url(:user_id => @userdata.id) ,:html=>{:class=>"",:name=>'frm_update_photo',:id=>'avatar-form',:multipart => true}) do |p| %>
+                        <div class="panel panel-default">
+                          <div class="panel-heading">Avatar</div>
+                          <div class="panel-body avatar-wrapper">
+                            <div class="spinner">
+                              <div class="spinner-dot"></div>
+                              <div class="spinner-dot"></div>
+                              <div class="spinner-dot"></div>
+                            </div>
+                            <div id="avatar"></div>
+                            <div>
+                              <% if @userdata.trans_user_informations.profile_picture.blank? == true or @userdata.trans_user_informations.profile_picture == "No" %>
+                                  <%= image_tag("admin/user.png", :alt => "image", :class=>"avatar-preview img-circle") %>
+                              <% elsif @userdata.trans_user_informations.profile_picture == "GA" %>
+                                  <%= image_tag("admin/gravatar.jpg", :alt => "image", :class=>"avatar-preview img-circle") %>
+                              <% else %>
+                                  <img class="avatar-preview img-circle" src="/user/profile/<%= @userdata.trans_user_informations.profile_picture %>" onerror="this.src='/assets/img/user.png'" />
+                              <% end %>
+                              <div data-target="#choose-modal" data-toggle="modal" class="btn btn-default btn-block" id="change-picture">
+                                <i class="fa fa-camera"></i>
+                                <%= t("change_photo") %>
+                              </div>
+                              <div class="row avatar-controls" >
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                  <div class="btn btn-block btn-danger" style="text-align: center;" id="cancel-upload">
+                                    <i class="fa fa-times"></i> <%= t("cancel") %>
+                                  </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                  <button class="btn btn-success btn-block" style="text-align: center;" id="save-photo" type="button">
+                                    <i class="fa fa-check"></i> <%= t("save") %>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="choose-modal" class="modal fade">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div onclick="window.location.href='<%= update_default_photo_url(:user_id=> Base64.encode64(@userdata.id.to_s), :p_type => "No", :type => @user_type) %>'" id="no-photo" class="col-md-6 col-sm-6 col-xs-12 avatar-source">
+                                    <%= image_tag("admin/user.png", :alt => "image", :class=>"img-circle") %>
+                                    <p><%= t("no_photo") %></p>
+                                  </div>
+                                  <div class="col-md-6 col-sm-6 col-xs-12 avatar-source">
+                                    <div class="btn btn-default btn-upload">
+                                      <i class="fa fa-upload"></i>
+                                      <!-- <input type="file" id="avatar-upload" name="avatar"> -->
+                                      <%= p.file_field :avatar, id: "avatar-upload" %>
+                                    </div>
+                                    <p><%= t("upload_photo") %></p>
+                                  </div>
+                                  <!--<div onclick="window.location.href='<%= update_default_photo_url(:user_id=> Base64.encode64(@userdata.id.to_s), :p_type => "GA", :type => @user_type) %>'" class="col-md-4 avatar-source source-external">-->
+                                    <!--<%= image_tag("admin/gravatar.jpg", :alt => "image", :class=>"img-circle") %>-->
+                                    <!--<p>Gravatar</p>-->
+                                  <!--</div>-->
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div style="display: none;">
+                          <%= p.hidden_field "imagebase64",:id=>"imagebase64" %>
+                          <%= p.hidden_field :user_id,  :value=> @userdata.id %>
+                        </div>
+                    <% end %>
+
+              </div>
+              <div class="col-md-9 col-sm-8 col-xs-12">
+                <div class="edit-profile-sec clearfix">
+                    <div class="ttl-edit-prof relative">
+                        <%= t("view_profile") %>
+						<div class="promo-right">
+              <% if @userdata.trans_user_informations.user_type == "2" %>
+							<a href="<%= cust_become_promoter_url %>" onclick="return confirm('<%= t("are_you_sure_become_promoter")%>');" class="btn btn-black" ><%= t("become_promoter") %></a>
+              <% end %>
+						</div>
+                    </div>
+                    <form class="form-horizontal">
+                        <div class="form-group offset-bottom-30">
+                            <label class="col-md-3 col-sm-4 col-xs-4 control-label"><%= t("first_name_plc") %></label>
+                            <div class="col-md-6 col-sm-8 col-xs-8">
+                                <p class="label-text"><%= @userdata.trans_user_informations.first_name %></p>
+                            </div>
+                        </div>
+                        <div class="form-group offset-bottom-30">
+                            <label class="col-md-3 col-sm-4 col-xs-4 control-label"><%= t("last_name_plc") %></label>
+                            <div class="col-md-6 col-sm-8 col-xs-8">
+                                <p class="label-text"><%= @userdata.trans_user_informations.last_name %></p>
+                            </div>
+                        </div>
+                        <div class="form-group offset-bottom-30">
+                            <label class="col-md-3 col-sm-4 col-xs-4 control-label"><%= t("email_address") %></label>
+                            <div class="col-md-6 col-sm-8 col-xs-8">
+                                <p class="label-text"><%= @userdata.user_email %></p>
+                            </div>
+                        </div>
+                        <div class="form-group offset-bottom-30">
+                            <label class="col-md-3 col-sm-4 col-xs-4 control-label"><%= t("cntact_no") %></label>
+                            <div class="col-md-6 col-sm-8 col-xs-8">
+                                <p class="label-text"><%= (!@userdata.trans_user_informations.blank?)? @userdata.trans_user_informations.user_mobile : "---" %></p>
+                            </div>
+                        </div>
+                        <div class="form-group offset-bottom-30">
+                            <label class="col-md-3 col-sm-4 col-xs-4 control-label"><%= t("address") %></label>
+                            <div class="col-md-6 col-sm-8 col-xs-8">
+                                <p class="label-text"><%= (!@userdata.trans_user_informations.blank?)? @userdata.trans_user_informations.user_address : "---" %></p>
+                            </div>
+                        </div>
+                        <% if @userdata.trans_user_informations.user_type == "3" %>
+                        <div class="form-group offset-bottom-30">
+                            <label class="col-md-3 col-sm-4 col-xs-4 control-label"><%= t("referral_code") %></label>
+                            <div class="col-md-6 col-sm-8 col-xs-8">
+                                <p class="label-text"><%= (!@userdata.trans_user_informations.blank?)? @userdata.trans_user_informations.promo_code : "---" %></p>
+                            </div>
+                        </div>
+                        <div class="form-group offset-bottom-30">
+                            <label class="col-md-3 col-sm-4 col-xs-4 control-label"><%= t("paypal_acc_mail") %></label>
+                            <div class="col-md-6 col-sm-8 col-xs-8">
+                                <p class="label-text"><%= (!@userdata.trans_user_informations.blank?)? @userdata.trans_user_informations.paypal_acc : "---" %></p>
+                            </div>
+                        </div>
+                        <% end %>
+                        
+                    </form>
+                </div>
+            </div>    
+        </div>    
+    </div>
+    <footer id="footer" class="footer-sec"> 
+        <div class="footer-bottom clearfix">
+          <div class="pull-left">
+            <ul class="foot-menu">
+              <li><a href="<%= cms_page_url(:page_name => 'partners')%>" <% if segment(2) == "partners"%> class="active" <% end %> ><%= t("partners") %></a></li>
+              <li><a href="<%= blog_url %>" <% if segment(1) == "blog"%> class="active" <% end %> ><%= t("blog") %></a></li>
+              <li><a href="<%= cms_page_url(:page_name => 'privacy')%>" <% if segment(2) == "privacy"%> class="active" <% end %> ><%= t("privacy") %></a></li>
+              <li><a href="<%= cms_page_url(:page_name => 'about-us')%>" <% if segment(2) == "about-us"%> class="active" <% end %> ><%= t("about_us") %></a></li>
+              <li><a href="<%= contactus_url %>" <% if segment(1) == "contact-us"%> class="active" <% end %> ><%= t("contact_us") %></a></li>
+          </ul>
+      </div>
+      <% getGlobalData %>
+        <p class="pull-right"> &copy; 2016 - 2017 | <a href="#">www.<%= @site_title %>.com</a> | All Rights Reserved. </p>
+  </div>
+</footer>
+</div>
+
+</section>
+<%= stylesheet_link_tag 'croppie' %>
+<%= javascript_include_tag 'croppie' %>
+<%#= javascript_include_tag 'admin/profile' %>
+<script type="text/javascript">
+  var vHeight = 202,
+      image = null,
+      croppie = null;
+
+  function initCroppie() {
+    var avatar = $('#avatar');
+    var width = $(".avatar-wrapper").width(),
+        bWidth = width * 82/100,
+        vWidth = bWidth * 53/100;
+
+    if (vWidth > 160) {
+      vWidth = 160;
+    }
+
+    avatar.croppie('destroy');
+    croppie = avatar.croppie({
+      viewport: {
+        width: vWidth,
+        height: vWidth,
+        type: 'circle'
+      },
+      boundary: {
+        width: bWidth,
+        height: vHeight
+      }
+    });
+    if (image) {
+      croppie.croppie('bind', {
+        url: image
+      });
+    }
+  };
+  var timer;
+  $(window).resize(function () {
+    if (croppie) {
+      timer && clearTimeout(timer);
+      timer = setTimeout(initCroppie, 100);
+    }
+  });
+
+  function readFile(input) {
+    if (input.files && input.files[0]) {
+      var file_type = input.files[0].type.split('/')
+      if(file_type[0] == "image"){
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          image = e.target.result;
+          hideCurrentImage();
+          initCroppie();
+          hideSpinner();
+        }
+        closeChooseModal();
+        makeCurrentImageInvisible();
+        hideChangePictureButton();
+        showAvatarControlButtons();
+        showSpinner();
+        reader.readAsDataURL(input.files[0]);
+      }
+      else{
+        closeChooseModal();
+        $('#avatar').croppie('destroy');
+        $("#avatar").removeClass('croppie-container');
+        hideAvatarControlButtons();
+        showChangePictureButton();
+        makeCurrentImageVisible();
+        showCurrentImage();
+        alert("Please select a valid image format.");
+      }
+    }
+    else {
+      alert("Sorry - you're browser doesn't support the FileReader API");
+    }
+  }
+
+  $("#cancel-upload").click(function () {
+    croppie = null;
+    $('#avatar').croppie('destroy');
+    $("#avatar").removeClass('croppie-container');
+    hideAvatarControlButtons();
+    showChangePictureButton();
+    makeCurrentImageVisible();
+    showCurrentImage();
+  });
+
+  function showAvatarControlButtons() {
+    $(".avatar-controls").show();
+  }
+
+  function hideAvatarControlButtons() {
+    $(".avatar-controls").hide();
+  }
+
+  function showChangePictureButton() {
+    $("#change-picture").show();
+  }
+
+  function hideChangePictureButton() {
+    $("#change-picture").hide();
+  }
+
+  function closeChooseModal() {
+    $("#choose-modal").modal('hide');
+  }
+
+  function hideCurrentImage() {
+    $(".avatar-wrapper .avatar-preview").hide();
+  }
+
+  function showCurrentImage() {
+    $(".avatar-wrapper .avatar-preview").show();
+  }
+
+  function makeCurrentImageInvisible() {
+    $(".avatar-wrapper .avatar-preview").css({visibility: 'hidden'});
+  }
+
+  function makeCurrentImageVisible() {
+    $(".avatar-wrapper .avatar-preview").css({visibility: 'visible'});
+  }
+
+  function showSpinner() {
+    $(".avatar-wrapper .spinner").css({opacity: 1});
+  }
+
+  function hideSpinner() {
+    $(".avatar-wrapper .spinner").css({opacity: 0});
+  }
+  $('#avatar-upload').on('change', function () { readFile(this); });
+  $('#save-photo').on('click', function (ev) {
+    croppie.croppie('result', {
+      type: 'canvas',
+      size: 'original'
+    }).then(function (resp) {
+      $('#imagebase64').val(resp);
+      $('#avatar-form').submit();
+      $(".avatar-controls .btn").attr('disabled', 'disabled');
+      $(".avatar-controls .btn").text("Saving...");
+    });
+    return false;
+  });
+</script>

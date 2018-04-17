@@ -1,0 +1,11 @@
+<html>
+<head></head>
+<body>
+  <% if flash[:error] %>
+ <%= flash[:error] %>
+ <% else %>
+ <%= flash[:success] %>
+ <% end %>
+		<center><h1 style="color:violet;">Welcome <%= session[:user_name] %></h1></center>
+</body>
+</html>

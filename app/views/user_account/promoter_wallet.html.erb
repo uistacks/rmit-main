@@ -1,0 +1,111 @@
+order_id<% provide(:title, t("promoter_wallet")) %>
+<section class="dashboard-middle-sec">
+    <div class="dash-left-sec">
+		<div class="dash-left-cross">
+			<a href="javascript:void(0)" class="btn btn-slideright" "=""><span class="i-cross"></span></a>
+		</div>
+    	<ul class="left-menu-list">
+           <li><a href="<%= user_dashboard_url %>" title="<%= t("dashboard") %>"><span class="i-house"> </span></a></li>
+           <li> <a href="<%= edit_user_email_url(:user_id => Base64.encode64(@userdata.id.to_s)) %>" title="<%= t("account_setting") %>"><span class="i-cogwheel"> </span></a></li>
+           <li><a href="<%= edit_profile_url(:user_id => Base64.encode64(@userdata.id.to_s)) %>" title="<%= t("edit_profile") %>"><span class="i-interface"></span></a></li>
+            <li><a href="<%= user_order_url %>" title="<%= t("my_order") %>" ><span class="fa fa-table"></span></a></li>
+           <% if @userdata.trans_user_informations.user_type == "2" %>
+                <!-- <li><a href="#"><span class="i-tool2"></span></a></li> -->
+                <!-- <li><a href="<%= user_order_url %>" title="<%= t("my_order") %>" ><span class="fa fa-table"></span></a></li> -->
+           <% elsif @userdata.trans_user_informations.user_type == "3" %>
+                <li><a href="<%= sale_chart_url %>" title="<%= t("sales_performance") %>" ><span class="i-business-12"></span></a></li>
+                <li><a href="<%= promoter_wallet_url %>" class="active" title="<%= t("my_wallet") %>" ><span class="fa fa-usd"></span></a></li>
+           <% end %>
+           <li><a href="<%= user_transactions_url %>" title="<%= t("transaction_history") %>" ><span class="fa fa-money"></span></a></li>
+        </ul>
+    </div>
+    <div class="dash-right-sec">
+    	<div class="common-right-sec">
+      	<div class="edit-profile-sec clearfix">
+          	<div class="ttl-edit-prof">
+            	<%= t("my_wallet") %>
+            </div>
+              <div class="email-setting">
+              	<%= form_for(:pay_request, url: pay_request_url(:user_id => Base64.encode64(session[:user_id].to_s)), :html=>{:name=>'frm_pay_request', class: "form-horizontal", :id=>'frm_pay_request'}) do |f| %>
+                	   <div class="personal-info-edit clearfix">
+                      <div class="form-group offset-bottom-30">
+                    	  <label class="control-label col-md-3 col-sm-5 col-xs-12"><%= t("balance") %>:</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                        	  <%= f.text_field :amount, class: 'form-control', id: 'amount', value: (!@my_wallet.blank?)? @my_wallet.credit_amount : "0.00", readonly: 'true' %>
+                          </div>
+                      </div>
+                    <% if @my_wallet.blank? == false %>
+                  	 <div class="form-group offset-bottom-30">
+                      <label class="control-label col-md-3 col-sm-5 col-xs-12"><%= t("withdraw_amount") %>:</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          	<%= f.text_field :req_amount, class: 'form-control', id: 'req_amount', value: '' %>
+                          </div>
+                    </div>
+                  	<div class="form-group offset-bottom-30">
+                    <div class="col-md-6 col-sm-5 col-xs-12 col-md-offset-3 col-sm-offset-5">
+                        <%= f.submit t("send_request"),class:"btn btn-orange",id:"btnSubmit" %>
+                    	<!-- <a href="#" ">Send</a> -->
+                        <!-- <a href="#" class="btn btn-black">Cancel</a> -->
+                    </div>
+					</div>
+                    <% end %>
+
+                    </div>
+                <% end %>
+                </div>
+            </div>
+        </div>
+        <footer id="footer" class="footer-sec">
+          <div class="footer-bottom clearfix">
+          <div class="pull-left">
+            <ul class="foot-menu">
+              <li><a href="<%= cms_page_url(:page_name => 'partners')%>" <% if segment(2) == "partners"%> class="active" <% end %> ><%= t("partners") %></a></li>
+              <li><a href="<%= blog_url %>" <% if segment(1) == "blog"%> class="active" <% end %> ><%= t("blog") %></a></li>
+              <li><a href="<%= cms_page_url(:page_name => 'privacy')%>" <% if segment(2) == "privacy"%> class="active" <% end %> ><%= t("privacy") %></a></li>
+              <li><a href="<%= cms_page_url(:page_name => 'about-us')%>" <% if segment(2) == "about-us"%> class="active" <% end %> ><%= t("about_us") %></a></li>
+              <li><a href="<%= contactus_url %>" <% if segment(1) == "contact-us"%> class="active" <% end %> ><%= t("contact_us") %></a></li>
+            </ul>
+          </div>
+              <% getGlobalData %>
+              <p class="pull-right"> &copy; 2016 - 2017 | <a href="#">www.<%= @site_title %>.com</a> | All Rights Reserved. </p>
+          </div>
+        </footer>
+    </div>
+</section>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<%
+  if @my_wallet.nil? == false
+    @my_wallet = @my_wallet.credit_amount
+  else
+    @my_wallet = 1
+  end
+%>
+<script>
+  $(document).ready(function(){
+    $("#frm_pay_request").validate({
+      onkeyup: false,
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'pay_request[req_amount]': {
+          required : true,
+          // min : 1
+          max: <%=  @my_wallet %>
+        }
+      },
+      messages: {
+        'pay_request[req_amount]': {
+          required: "Please enter withdrawal amount",
+          max: "Please enter value less than balance amount"
+        }
+      },
+      submitHandler: function(form) {
+        $('#btnSubmit').attr("disabled","disabled");
+        $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+        form.submit();
+        return true;
+      }
+    });
+
+  });
+</script>

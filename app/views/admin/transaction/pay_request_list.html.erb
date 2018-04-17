@@ -1,0 +1,87 @@
+<% provide(:title, "Payment Request") %>
+<div id="page-wrapper" class="gray-bg">
+  <%= render "admin/includes/header" %>
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2></h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= admin_dashboard_url %>">Dashboard</a>
+        </li>
+        <li class="active">
+          <strong>Manage Payment Request</strong>
+        </li>
+      </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+  <%= stylesheet_link_tag 'admin/plugins/dataTables/datatables.min.css' %>
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Manage Payment Request</h5>
+            <div class="ibox-tools">
+            </div>
+          </div>
+          <div class="ibox-content">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover dataTables-example" >
+                <thead>
+                  <tr>
+                    <!-- <th>No.</th> -->
+                    <th>From</th>
+                    <th>Amount($)</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <% t = Time.now %>
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                  <%# @i = 1 %>
+                  <% if @pay_request.blank? == false %>
+                  <% @pay_request.each do |p| %>
+                  <tr>
+                    <!-- <td width="10%"> <%#= @i %></td> -->
+                    <td ><%= p.first_name+" (" %><a href="mailto:<%= p.user_email %>"><%= p.user_email %></a><%= ")" %></td>
+                    <td><%= p.amount %></td>
+                    <td><% if p.status == "0" %>
+                        <%= "Unpaid" %>
+                        <% else %>
+                        <%= "Paid" %>
+                        <% end %>
+                    </td>
+                    <td><%= p.created_at.strftime(@date_format) %></td>
+                    <td>
+                      <% if p.status == "0" %>    
+                      <%= link_to admin_promoter_payment_url(:req_id => Base64.encode64(p.id.to_s)), :class=>'btn btn-danger btn-xs', :title =>"Pay Now" do %>
+                      <i class="fa fa-eye"></i> Pay Now
+                      <% end %>
+                      <% else %>
+                      <%= "---" %>
+                      <% end %>
+                    </td>
+                  </tr>
+                  <%# @i = @i + 1 %>
+                  <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/plugins/dataTables/datatables.min.js' %>
+<script>
+$(document).ready(function(){
+  $('.dataTables-example').DataTable({
+  });
+});
+</script>

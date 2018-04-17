@@ -1,0 +1,127 @@
+<% provide(:title, "Partner") %>
+<div id="page-wrapper" class="gray-bg">
+  <%= render "admin/includes/header" %>
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2></h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= admin_dashboard_url %>">Dashboard</a>
+        </li>
+        <li>
+          <a href="<%= admin_partner_list_url %>">Manage Partner</a>
+        </li>
+        <li class="active">
+          <strong>Add Partner</strong>
+        </li>
+      </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+  <div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+          <div class="col-lg-12">
+              <div class="ibox float-e-margins">
+                  <div class="ibox-title">
+                      <h5>Add Partner</h5>
+                  </div>
+                  <div class="ibox-content">
+                    <%= form_for(:add_partner, url: admin_create_partner_url ,:html=>{:class=>"form-horizontal",:name=>'frm_add_partner',:id=>'frm_add_partner'}) do |f| %>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Partner Name<span class="text-danger">*</span>:</label>
+                      <div class="col-sm-10">
+                        <%= f.text_field :partner_name, class: 'form-control', :value => '', id: 'partner_name' %>
+                      </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Site Address<span class="text-danger">*</span>:</label>
+                      <div class="col-sm-10">
+                        <%= f.text_field :siteaddress, class: 'form-control', :value => '', id: 'siteaddress' %>
+                      </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                   <!--  <div class="form-group">
+                      <label class="col-sm-2 control-label">Parent Category:</label>
+                      <div class="col-sm-10">
+                        <% if @categories.blank? == false then %>
+                          <%= f.select :parent_id, options_for_select(@categories.all.map{|p| [p.category_name, p.id]}), {:include_blank => "No Parent"}, {:class=>"form-control"}%>
+                        <%  else %>
+                          <%= f.select :parent_id,options_for_select([['Select Category', ''], ['No Parent', "0"]]) ,{},{:class => 'form-control'} %>
+                        <%  end %>
+                      </div>
+                    </div>
+                    <div class="hr-line-dashed"></div> -->
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Partner Logo<span class="text-danger">*</span>:</label>
+                      <div class="col-sm-10">
+                        <%= f.file_field :partner_logo, class: 'form-control', :id => 'partner_logo' %>
+                      </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <!-- <div class="form-group">
+                      <label class="col-sm-2 control-label">Language:</label>
+                      <div class="col-sm-10">
+                        <%= f.select(:lang_id, options_for_select([["Select Language",""],["English","17"],["Chinese","12"]]),{},:class=>"form-control") %>
+                      </div>
+                    </div> -->
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                      <div class="col-sm-4 col-sm-offset-2">
+                        <%= f.submit "Save Changes", class: "btn btn-primary",id:"btnSubmit" %>
+                      </div>
+                    </div>
+                  <% end %>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+  $(document).ready(function(){
+    $("#frm_add_partner").validate({
+      onkeyup: false,
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'add_partner[partner_name]': {
+          required : true,
+           remote:{
+             url: "<%= admin_check_partner_name_url %>",
+             method: "get"
+           }
+        },
+        'add_partner[siteaddress]': {
+          required : true
+        },
+        'add_partner[partner_logo]': {
+          required : true,
+          accept : "jpg|jpeg|png|bmp|gif|tiff"
+        }
+      },
+      messages: {
+        'add_partner[partner_name]': {
+          required: "Please enter partner name.",
+          remote:"Entered partner name already exists."
+        },
+        'add_partner[siteaddress]': {
+          required: "Please enter site address."
+        },
+        'add_partner[partner_logo]': {
+        required: "Please select partner logo.",
+        accept : "Please select valid image type"
+      }
+      },
+      submitHandler: function(form) {
+        $('#btnSubmit').attr("disabled","disabled");
+        $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+          form.submit();
+          return true;
+      }
+    });
+  });
+</script>

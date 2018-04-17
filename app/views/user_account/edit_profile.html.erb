@@ -1,0 +1,237 @@
+<% provide(:title, t("edit_profile")) %>
+<section class="dashboard-middle-sec">
+    <div class="dash-left-sec">
+		<div class="dash-left-cross">
+			<a href="javascript:void(0)" class="btn btn-slideright" "=""><span class="i-cross"></span></a>
+		</div>
+    	<ul class="left-menu-list">
+
+           <li><a href="<%= user_dashboard_url %>" title="<%= t("dashboard") %>"><span class="i-house"> </span></a></li>
+           <li> <a href="<%= edit_user_email_url(:user_id => Base64.encode64(@userdata.id.to_s)) %>" title="<%= t("account_setting") %>"><span class="i-cogwheel"> </span></a></li>
+           <li><a href="<%= edit_profile_url(:user_id => Base64.encode64(@userdata.id.to_s)) %>" class="active" title="<%= t("edit_profile") %>"><span class="i-interface"></span></a></li>
+            <li><a href="<%= user_order_url %>" title="<%= t("my_order") %>" ><span class="fa fa-table"></span></a></li>
+           <% if @userdata.trans_user_informations.user_type == "2" %>
+                <!-- <li><a href="#"><span class="i-tool2"></span></a></li> -->
+                 <!-- <li><a href="<%#= user_order_url %>" title="<%#= t("my_order") %>" ><span class="fa fa-table"></span></a></li> -->
+           <% elsif @userdata.trans_user_informations.user_type == "3" %>
+                <li><a href="<%= sale_chart_url %>" title="<%= t("sales_performance") %>" ><span class="i-business-12"></span></a></li>
+                <li><a href="<%= promoter_wallet_url %>" title="<%= t("my_wallet") %>" ><span class="fa fa-usd"></span></a></li>
+           <% end %>
+          <li><a href="<%= user_transactions_url %>" title="<%= t("transaction_history") %>" ><span class="fa fa-money"></span></a></li>
+       </ul>
+   </div>
+   <div class="dash-right-sec">
+       <div class="common-right-sec">
+           <div class="edit-profile-sec clearfix">
+               <div class="ttl-edit-prof">
+                   <%= t("edit_profile") %>
+               </div>
+               <%= form_for(:update_profile, url: update_profile_url(:user_id => Base64.encode64(@userdata.trans_user_informations.id.to_s)), :html=>{:name=>'frm_update_profile', class: "form-horizontal", :id=>'frm_update_profile'}) do |f| %>
+               <!-- <form > -->
+                   <div class="personal-info-edit">
+                       <div class="ttl-personal-info">
+                           <%= t("personal_information") %>
+                       </div>
+                       <div class="form-group offset-bottom-20">
+                           <label class="control-label col-md-3 col-sm-4 col-xs-12 width-h"><%= t("first_name_plc") %>:</label>
+                           <div class="col-md-6 col-sm-8 col-xs-12 width-h">
+                            <%= f.text_field :first_name, class: 'form-control', id: 'first_name', value: @userdata.trans_user_informations.first_name, placeholder:t("first_name_plc") %>
+                           </div>
+                       </div>
+                       <div class="form-group offset-bottom-20">
+                           <label class="control-label col-md-3 col-sm-4 col-xs-12 width-h"><%= t("last_name_plc") %>:</label>
+                           <div class="col-md-6 col-sm-8 col-xs-12 width-h">
+                           <%= f.text_field :last_name, class: 'form-control', id: 'last_name', value: @userdata.trans_user_informations.last_name, placeholder:t("last_name_plc") %>
+                           </div>
+                       </div>
+                       <div class="form-group offset-bottom-20">
+                           <label class="control-label col-md-3 col-sm-4 col-xs-12 width-h"><%= t("phone_number_plc") %>:</label>
+                           <div class="col-md-6 col-sm-8 col-xs-12 width-h">
+                               <%= f.text_field :phone_number, class: 'form-control', id: 'phone_number', value: (!@userdata.trans_user_informations.blank?)? @userdata.trans_user_informations.user_mobile : '', placeholder:t("phone_number_plc") %>
+                           </div>
+                       </div>
+                       <div class="form-group offset-bottom-20">
+                           <label class="control-label col-md-3 col-sm-4 col-xs-12 width-h"><%= t("address") %>:</label>
+                           <div class="col-md-6 col-sm-8 col-xs-12 width-h">
+                               <%= f.text_field :address, class: 'form-control', id: 'address', value: (!@userdata.trans_user_informations.blank?)? @userdata.trans_user_informations.user_address : '', placeholder: t("address") %>
+                           </div>
+                       </div>
+                       <% if @userdata.trans_user_informations.user_type == "3" %>
+                        <div class="form-group offset-bottom-20"">
+                            <label class="control-label col-md-3 col-sm-4 col-xs-12 width-h"><%= t("commision") %>:</label>
+                            <div class="col-md-2 col-sm-2 col-xs-12 width-th-per">
+                              <%= f.text_field :commision, class: 'form-control', value: (!@userdata.trans_user_informations.blank?)? @userdata.trans_user_informations.promoter_commision : '', id: 'commision' %>
+                            </div>
+                            <div class="col-md-7 col-sm-6 col-xs-12 width-th-per">
+                            <strong><%= t("in_percentage") %>(%)</strong>
+                            </div>
+                        </div>
+                       <% end %> 
+                     <!-- <div class="form-group offset-bottom-20">
+                       <label class="control-label col-md-3 col-sm-4 col-xs-12">Promo Code:</label>
+                       <div class="col-md-6 col-sm-8 col-xs-12">
+                         <%#= (@userdata.trans_user_informations.nil? == false) ? @userdata.trans_user_informations.promo_code : "" %>
+                       </div>
+                     </div> -->
+                   </div>
+                   <div class="bank-detail">
+                       <div class="ttl-personal-info">
+                           <%= t("bank_details") %>
+                       </div>
+                       <% if (@userdata.trans_user_informations.user_type == "3") %>
+                        <div class="form-group offset-bottom-20">
+                           <label class="control-label col-md-3 col-sm-4 col-xs-12 width-h"><%= t("paypal_acc_mail") %>:</label>
+                            <div class="col-md-6 col-sm-8 col-xs-12 width-h">
+                               <%= f.text_field :paypal_acc, class: 'form-control', id: 'paypal_acc', value: (!@userdata.trans_user_informations.blank?)? @userdata.trans_user_informations.paypal_acc : '', placeholder: t("paypal_acc_mail") %>
+                            </div>
+                        </div>
+                        <% end %>
+                       <div class="form-group offset-bottom-20">
+                           <label class="control-label col-md-3 col-sm-4 col-xs-12 width-h"><%= t("bank_name") %>:</label>
+                            <div class="col-md-6 col-sm-8 col-xs-12 width-h">
+                               <%= f.text_field :bank_name, class: 'form-control', id: 'bank_name', value: (!@userdata.mst_bank_details.blank?)? @userdata.mst_bank_details.bank_name : '', placeholder: t("bank_name") %>
+                            </div>
+                        </div>
+                       <div class="form-group offset-bottom-20">
+                           <label class="control-label col-md-3 col-sm-4 col-xs-12 width-h"><%= t("account_number") %>:</label>
+                            <div class="col-md-6 col-sm-8 col-xs-12 width-h">
+                               <%= f.text_field :acc_no, class: 'form-control', id: 'acc_no', value: (!@userdata.mst_bank_details.nil?)? @userdata.mst_bank_details.account_no : '', placeholder: t("account_number") %>
+                            </div>
+                        </div>
+                       <div class="form-group offset-bottom-20">
+                           <label class="control-label col-md-3 col-sm-4 col-xs-12 width-h"><%= t("account_holder_name") %>:</label>
+                            <div class="col-md-6 col-sm-8 col-xs-12 width-h">
+                               <%= f.text_field :acc_holder_name, class: 'form-control', id: 'acc_holder_name', value: (!@userdata.mst_bank_details.blank?)? @userdata.mst_bank_details.acc_holder_name : '', placeholder:t("account_holder_name") %>
+                            </div>
+                        </div>
+                       <div class="form-group offset-bottom-20">
+                           <label class="control-label col-md-3 col-sm-4 col-xs-12 width-h"><%= t("ifsc_code") %>:</label>
+                            <div class="col-md-6 col-sm-8 col-xs-12 width-h">
+                               <%= f.text_field :ifsc_code, class: 'form-control', id: 'ifsc_code', value: (!@userdata.mst_bank_details.blank?)? @userdata.mst_bank_details.ifsc : '', placeholder: t("ifsc_code") %>
+                            </div>
+                        </div>
+                    </div>
+					<div class="form-group">
+                    <div class="btn-save col-md-6 col-sm-8 col-xs-12 col-md-offset-3 col-sm-offset-4">
+                       <!-- <a href="#" class="btn btn-black">Save</a> -->
+                       <%= f.submit t("save"), class: "btn btn-orange",id:"btnSubmit" %>
+                    </div>
+					</div>
+                <% end %>
+            </div>
+        </div>
+        <footer id="footer" class="footer-sec">
+            <div class="footer-bottom clearfix">
+                <div class="pull-left">
+                   <ul class="foot-menu">
+                      <li><a href="<%= cms_page_url(:page_name => 'partners')%>" <% if segment(2) == "partners"%> class="active" <% end %> ><%= t("partners") %></a></li>
+                      <li><a href="<%= blog_url %>" <% if segment(1) == "blog"%> class="active" <% end %> ><%= t("blog") %></a></li>
+                      <li><a href="<%= cms_page_url(:page_name => 'privacy')%>" <% if segment(2) == "privacy"%> class="active" <% end %> ><%= t("privacy") %></a></li>
+                      <li><a href="<%= cms_page_url(:page_name => 'about-us')%>" <% if segment(2) == "about-us"%> class="active" <% end %> ><%= t("about_us") %></a></li>
+                      <li><a href="<%= contactus_url %>" <% if segment(1) == "contact-us"%> class="active" <% end %> ><%= t("contact_us") %></a></li>
+                   </ul>
+               </div>
+               <% getGlobalData %>
+                <p class="pull-right"> &copy; 2016 - 2017 | <a href="#">www.<%= @site_title %>.com</a> | All Rights Reserved. </p>
+           </div>
+        </footer>
+    </div>
+</section>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+  $(document).ready(function(){
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+      return this.optional(element) || /^[a-z]+$/i.test(value);
+    }, "<%= t("acc_holder_name_char_val") %>"); 
+    
+    $("#frm_update_profile").validate({
+     
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'update_profile[first_name]': {
+          required : true
+        },
+        'update_profile[last_name]': {
+          required : true
+        },
+        'update_profile[address]': {
+          required : true
+        },
+        'update_profile[phone_number]': {
+          required:true,
+          number: true,
+          minlength: 10
+        },
+        'update_profile[bank_name]':{
+          required:true
+        },
+        'update_profile[paypal_acc]':{
+          required:true,
+          email: true
+        },
+        'update_profile[acc_no]':{
+          required:true
+        },
+        'update_profile[acc_holder_name]':{
+          required:true
+          // lettersonly: true
+        },
+        'update_profile[ifsc_code]':{
+          required:true
+        },
+        'update_profile[commision]':{
+          required:true,
+          number: true,
+          max: 100
+         
+        }
+      },
+      messages: {
+        'update_profile[first_name]': {
+          required: "<%= t("first_name_req_val") %>"
+        },
+        'update_profile[last_name]': {
+          required: "<%= t("last_name_req_val") %>"
+        },
+        'update_profile[address]': {
+          required: "<%= t("address_req_val") %>"
+        },
+        'update_profile[phone_number]': {
+          required: "<%= t("phone_number_req_val") %>",
+          number: "<%= t("phone_number_num_val") %>",
+          minlength: "<%= t("phone_number_min_val") %>"
+        },
+        'update_profile[bank_name]':{
+          required:"<%= t("bank_name_req_val") %>"
+        },
+        'update_profile[acc_no]':{
+          required:"<%= t("acc_no_req_val") %>"
+        },
+        'update_profile[paypal_acc]':{
+          required: "<%= t("paypal_acc_req") %>",
+          email: "<%= t("user_email_email_val") %>"
+
+        },
+        'update_profile[acc_holder_name]':{
+          required:"<%= t("acc_holder_name_req_val") %>"
+          // lettersonly : "<%#= t("acc_holder_name_char_val") %>"
+        },
+        'update_profile[ifsc_code]':{
+          required:"<%= t("ifsc_code_req_val") %>"
+        },
+        'update_profile[commision]':{
+          required:"<%= t("commision_req_val") %>",
+          number: "<%= t("phone_number_num_val") %>",
+          max: "<%= t("commision_max_val") %>"
+        }
+      },
+      submitHandler: function(form) {
+        $('#btnSubmit').attr("disabled","disabled");
+        $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+        form.submit();
+        return true;
+      }
+    });
+  });
+</script>

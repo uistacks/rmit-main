@@ -1,0 +1,123 @@
+<% provide(:title, "Newsletter") %>
+<div id="page-wrapper" class="gray-bg">
+	<%= render "admin/includes/header" %>
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2></h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= admin_dashboard_url %>">Dashboard</a>
+        </li>
+        <li>
+			<a href="<%= admin_newsletter_list_url %>">Manage Newsletter</a>
+		</li>
+		<li class="active">
+			<strong>Update Newsletter</strong>
+		</li>
+      </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Update Newsletter</h5>
+                        </div>
+                        <div class="ibox-content">
+                          <%= form_for(:add_newsletter, url: admin_newsletter_update_url(:news_id => Base64.encode64(@newletter.id.to_s)) ,:html=>{:class=>"form-horizontal",:name=>'frm_add_newsletter',:id=>'frm_add_newsletter'}) do |f| %>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Language<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.select :lang_id,options_for_select([['Select Language', nil],['English', 17], ['Chinese', 12]], @newletter.lang_id) ,{},{:class => 'form-control'} %>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Newsletter subject<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.text_field :newsletter_subject, class: 'form-control', placeholder:'Newsletter subject',:value => @newletter.newsletter_subject %>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Newsletter content<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.cktext_area :newsletter_content, class: 'form-control', placeholder:'Newsletter content',:value => @newletter.newsletter_content %>
+                              <label style="display: none;" class="error hidden" id="labelProductError">Please enter post description.</label>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Status<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.select :status,{} ,{},{:class => 'form-control'} do %>
+                                <%= options_for_select([['Select Status', ''], ['Active', '1'], ['Inactive', '0']], @newletter.status) %>
+                              <% end %>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                              <%= f.submit "Save Changes", class: "btn btn-primary",id:"btnSubmit" %>
+                            </div>
+                          </div>
+                        <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	</div>
+	<%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    jQuery("#frm_add_newsletter").validate({
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'add_newsletter[lang_id]':{
+          required: true
+        },
+        'add_newsletter[newsletter_subject]': {
+          required: true
+        },
+        'add_newsletter[newsletter_content]': {
+          required: true
+        },
+        'add_newsletter[status]':{
+          required:true
+        }
+      },
+      messages: {
+        'add_newsletter[lang_id]':{
+          required: "Please select language."
+        },
+        'add_newsletter[newsletter_subject]': {
+          required: "Please enter newletter title."
+        },
+        'add_blog_post[newsletter_content]': {
+          required:"Please enter newletter content."
+        },
+        'add_newsletter[status]':{
+          required:"Please select status."
+        }
+      },
+      submitHandler: function (form) {
+        if ((jQuery.trim(jQuery("#cke_1_contents iframe").contents().find("body").html())).length < 12)
+        {
+          jQuery("#labelProductError").removeClass("hidden");
+          jQuery("#labelProductError").show();
+        }
+        else {
+          jQuery("#labelProductError").addClass("hidden");
+          $('#btnSubmit').addClass('disabled');
+          form.submit();
+        }
+      }
+    });
+  });
+</script>

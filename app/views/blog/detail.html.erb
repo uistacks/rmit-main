@@ -1,0 +1,187 @@
+<% provide(:title,@page_title) %>
+<div style="background-image:url(../assets/front/img/slider.jpg);" class="contact-banner">
+    <div class="container">
+        <div class="contact-main-ttl-sec">
+            <div class="ttl-contact">
+                <%= t("blog_details") %>
+            </div>
+            <ul class="breadcrumba">
+                <li><a href="<%= root_url %>"><%= t("home") %></a></li>
+                <li class="active"><%= t("blog_details") %></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<section class="middlesec inner-pages">
+<div class="basic-comparison-section">
+   <div class="container">
+    <div class="blog-details-inner-sec">
+       <div class="row">
+        <% if @postdata.nil? == false %>
+           <div class="col-md-9 col-sm-9 col-xs-12">
+               <div class="blog-details-row-left-list">
+                    <div class="blog-details-left-sec">
+                        <div class="blog-list-left-img-sec relative">
+                            <% if @postdata.blog_image.blank? == false %>
+                            <%= image_tag("/blog_images/"+(@postdata.blog_image), :alt => "image") %>
+                            <% else %>
+                            <%= image_tag("front/img/blog-default.png", :alt => "image") %>
+                            <% end %>
+                        </div>
+                        <div class="blog-detail-right-con relative">
+                            <div class="back-org">
+                                <div class="ttl-blog">
+                                    <a href="#"><%= @postdata.post_title %></a>
+                                </div>
+                                <ul class="admin-sec">
+                                    <li><span class="i-social-4"></span> <%= t("admin") %></li>
+                                    <li><span class="i-square"></span> <%= @postdata.created_at.strftime('%d.%m.%Y %T') %></li>
+                                </ul>
+                            </div>
+                            <div class="blog-desc">
+                                <%= @postdata.post_content.html_safe %>
+                            </div>
+                        </div>
+                        <% if @arr_blog_comments.blank? == false %>
+                        <div class="comment-sec">
+                        <% @arr_blog_comments.each do |comment| %>
+                           <div class="outer-div">
+                               <div class="media">
+                                   <span class="pull-left img-round">
+                                      <% if @arr_blog_comments[0].profile_picture.blank? == false %>
+                                      <%= image_tag("user/profile/"+(@arr_blog_comments[0].profile_picture), :alt => "image") %>
+                                      <% else %>
+                                      <%= image_tag("/assets/front/img/user.png", :alt => "image") %>
+                                      <% end %>
+                                   </span>
+                                    <div class="media-body">
+                                        <div class="ttl-b">
+                                            <%= comment.commented_by %>
+                                        </div>
+                                        <div class="sm-text">
+                                            <%= comment.created_at.strftime('%d.%m.%Y %T') %>
+                                        </div>
+                                        <p>
+                                            <%= comment.comment %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <% end %>
+                        </div>
+                        
+                        <% end %>
+                        <div class="comment-form">
+                           <div class="ttl-post">
+                               <%= t("post_your_comment") %>
+                           </div>
+                           <div class="comment-form-inner">
+                               <%= form_for(:comment, url: blog_comment_url,:html=>{:name=>'frm_comment',:id=>'frm_comment',:autocomplete => "off",:role => "form"}) do |f| %>
+                               <div class="form-group">
+                                <% if session[:user_name].blank? == false %>
+                                  <%= f.text_field :commented_by_name, id: 'commented_by_name', class: 'form-control', :value => session[:user_name], readonly: "true", placeholder: t("enter_your_name") %>
+                                <% else %>
+                                  <%= f.text_field :commented_by_name, id: 'commented_by_name', class: 'form-control', :value => '', placeholder: t("enter_your_name") %>
+                                 <% end %>   
+                                </div>
+                                <div class="form-group">
+                                  <%= f.text_area :comment_desc, id: 'comment_desc', class: 'form-control', :value => '',rows: "2", placeholder: t("enter_your_comment_here") %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.hidden_field :post_title, id: 'post_title', :value => @postdata.post_title %>
+                                </div>  
+                                 <div class="btn-t">
+                                <%= f.submit t("post_comment"), class: "btn btn-orange",id:"btnSubmit" %>
+                                <%= link_to blog_url, class: "btn btn-black", title: t("cancel") do %><%= t("cancel") %>
+                                <% end %>
+                                 </div>
+                              <% end %>
+                            </div>
+                        </div>
+                    </div>													
+                </div>
+            </div>
+            <% end %>
+        <div class="col-md-3 col-sm-3 col-xs-12">
+          <div class="right-bar-sec">
+             <div class="search-sec">
+                <%= form_for(:blog_search, url: blog_search_url,:html =>{:name =>'frm_blog_search',:id =>'frm_blog_search', :method=>"GET"}) do |f| %>
+                    <div class="input-group">
+                        <%= f.text_field :title, id: 'title', class: 'form-control', :value=> '', placeholder: t('search_plc') %>
+                        <span class='input-group-btn'>
+                        <button type="submit" class="btn btn-orange"><span class="i-search"></span></button>
+                        </span>
+                    </div>
+                <% end %>
+             </div>
+            <div class="recent-updates-sec">
+               <div class="category-ttl">
+                   <%= t("recent_updates") %>
+               </div>
+               <% if @recent_post.nil? == false %>  
+                <div class="cate-list">
+                   <ul>
+                    <% @recent_post.each do |p| %>
+                      <li>
+                          <div class="media">
+                              <!-- <a href="#" class="pull-left rec-up-img"> -->
+                              <div class="media-body">
+                                  <a href="<%= blog_details_url(:seo_url => p.seo_url) %>"><%= p.post_title %></a>
+                                  <div class="date-up">
+                                      <%= p.created_at.strftime('%d-%m-%Y') %>
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+                    <% end %>  
+                   </ul>
+               </div>
+                <% else %>
+                  <center><%= t("recent_posts_not_found") %></center>
+                <% end %>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+
+</div>
+<style type="text/css">
+   textarea { resize: none; }
+</style>
+</section>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+  $(document).ready(function(){
+    $("#frm_comment").validate({
+      onkeyup: false,
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'comment[comment_desc]': {
+          required : true,
+          minlength: 25
+        },
+        'comment[commented_by_name]': {
+          required : true
+        }
+      },
+      messages: {
+        'comment[comment_desc]': {
+          required: "<%= t("comment_desc_req_val") %>",
+          minlength: "<%= t("comment_desc_min_val") %>"
+        },
+        'comment[commented_by_name]': {
+          required: "<%= t("commented_by_name_val") %>"
+        }
+      },
+      submitHandler: function(form) {
+        $('#btnSubmit').attr("disabled","disabled");
+        $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+          form.submit();
+          return true;
+      }
+    });
+  });
+</script>

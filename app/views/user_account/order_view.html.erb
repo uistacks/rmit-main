@@ -1,0 +1,253 @@
+<% provide(:title, t("my_order_details")) %>
+<section class="dashboard-middle-sec">
+  <div class="dash-left-sec">
+  	<div class="dash-left-cross">
+			<a href="javascript:void(0)" class="btn btn-slideright" "=""><span class="i-cross"></span></a>
+		</div>
+    <ul class="left-menu-list">
+      <li><a href="<%= user_dashboard_url %>" title="<%= t("dashboard") %>"><span class="i-house"> </span></a></li>
+      <li> <a href="<%= edit_user_email_url(:user_id => Base64.encode64(@userdata.id.to_s)) %>" title="<%= t("account_setting") %>"><span class="i-cogwheel"> </span></a></li>
+      <li><a href="<%= edit_profile_url(:user_id => Base64.encode64(@userdata.id.to_s)) %>" title="<%= t("edit_profile") %>"><span class="i-interface"></span></a></li>
+       <li><a href="<%= user_order_url %>" title="<%= t("my_order") %>" ><span class="fa fa-table"></span></a></li>
+      <% if @userdata.trans_user_informations.user_type == "2" %>
+          <!-- <li><a href="#"><span class="i-tool2"></span></a></li> -->
+          <!-- <li><a class="active" href="<%= user_order_url %>" title="<%= t("my_order") %>" ><span class"fa fa-table"></span></a></li> -->
+      <% elsif @userdata.trans_user_informations.user_type == "3" %>
+      
+          <li><a href="<%= sale_chart_url %>" title="<%= t("sales_performance") %>" ><span class="i-business-12"></span></a></li>
+          <li><a href="<%= promoter_wallet_url %>" class="" title="<%= t("my_wallet") %>" ><span class="fa fa-usd"></span></a></li>
+      <% end %>
+      <li><a href="<%= user_transactions_url %>" title="<%= t("transaction_history") %>" ><span class="fa fa-money"></span></a></li>
+    </ul>
+  </div>
+  <div class="dash-right-sec">
+    <div class="common-right-sec">
+      <div class="edit-profile-sec clearfix">
+        <div class="ttl-edit-prof">
+          <%= t("my_order_details") %>
+        </div>
+        <div class="email-setting">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <table class="table table-user-information table-bordered">
+               	<thead class="bg-gray"> 
+        					<tr>
+        						<th><b><%= t("insurance_company_information") %></b></th>
+        						<th></th>
+        					</tr>
+      				  </thead>
+                 <tbody>
+                  <tr>
+                    <td><%= t("title") %>:</td>
+                    <td><%= @order.title %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("contact_email") %>:</td>
+                    <td><%= @order.contact_email %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("enquiry_mail") %>:</td>
+                    <td><%= @order.enquiry_email %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("contact_no") %>:</td>
+                    <td><%= @order.contact_mobile %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("website") %>:</td>
+                    <td><%= @order.website %></td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+              <table class="table table-user-information table-bordered">
+                <thead class="bg-gray"> 
+                  <tr>
+                    <th><b><%= t("order_information") %></b></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                 <tbody>
+                  <tr>
+                    <td><%= t("order_date") %>:</td>
+                    <td><%= @order.order_date.strftime('%d-%m-%Y') %></td>
+                  </tr> 
+                  <tr>
+                    <td><%= t("amount") %>:</td>
+                    <td><%= @order.order_amt %></td>
+                  </tr>
+                   <tr>
+                    <td><%= t("payment_status") %>:</td>
+                    <td><% if @order.payment_status == "0" %>
+                        <%= t("unpaid") %>
+                        <% else %>
+                        <%= t("paid") %>
+                        <% end %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <table class="table table-user-information table-bordered">
+				<thead class="bg-gray"> 
+                	<tr>
+						<th><b><%= t("policy_information") %></b></th>
+						<th></th>
+                  	</tr>
+				  </thead>
+				  <tbody>
+                   
+                  <tr>
+                    <td><%= t("product_no") %>:</td>
+                    <td><%= @order.product_number %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("product_name") %>:</td>
+                    <td><%= @order.title %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><%= t("category") %>:</td>
+                    <td><%= @order.category_name %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("family_type") %>:</td>
+                    <td><%= @order.family_type %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("start_date_plc") %>:</td>
+                    <td><%= @order.start_date %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("end_date_plc") %>:</td>
+                    <td><%= @order.end_date %></td>
+                  </tr>
+                  <% if @order.family_type == "Couple" or @order.family_type == "Family" %>
+                  <tr>
+                    <td><%= t("partner") %> <%= t("title") %>:</td>
+                    <td><%= @order.partner_title %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("partner") %> <%= t("first_name_plc") %>:</td>
+                    <td><%= @order.partner_fn %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("partner") %> <%= t("last_name_plc") %>:</td>
+                    <td><%= @order.partner_ln %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("partner") %> <%= t("gender") %>:</td>
+                    <td><% if @order.partner_gender == "1" %>
+                        <%= "Male" %>
+                        <% else %>
+                        <%= "Female" %>
+                        <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><%= t("partner") %> <%= t("date_of_birth") %>:</td>
+                    <td><%= @order.partner_dob %></td>
+                  </tr>
+                  <%end%>
+                  <% if @order.family_type == "Family" or @order.family_type == "Single Parent Family" 
+                    @i = 1;
+                     if @defedent_detail.blank? == false
+                        @defedent_detail.each do |d|
+                    %>
+                  <tr>
+                      <td><b><%= t("dependent") %> <%= @i %></b></td>
+                      <td></td>
+                  </tr>  
+                  <tr>
+                    <td><%= t("dependent") %> <%= t("title") %>:</td>
+                    <td><%= d.title %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("dependent") %> <%= t("first_name_plc") %>:</td>
+                    <td><%= d.first_name %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("dependent") %> <%= t("last_name_plc") %>:</td>
+                    <td><%= d.last_name %></td>
+                  </tr>
+                  <tr>
+                    <td><%= t("dependent") %> <%= t("gender") %>:</td>
+                    <td><% if d.gender == "1" %>
+                        <%= "Male" %>
+                        <% else %>
+                        <%= "Female" %>
+                        <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><%= t("dependent") %> <%= t("date_of_birth") %>:</td>
+                    <td><%= d.date_of_birth %></td>
+                  </tr>
+                    <% 
+                        @i = @i + 1;
+                        end
+                      end                     
+                    end
+                   %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer id="footer" class="footer-sec">
+      <div class="footer-bottom clearfix">
+        <div class="pull-left">
+          <ul class="foot-menu">
+            <li><a href="<%= cms_page_url(:page_name => 'partners')%>" <% if segment(2) == "partners"%> class="active" <% end %> ><%= t("partners") %></a></li>
+            <li><a href="<%= blog_url %>" <% if segment(1) == "blog"%> class="active" <% end %> ><%= t("blog") %></a></li>
+            <li><a href="<%= cms_page_url(:page_name => 'privacy')%>" <% if segment(2) == "privacy"%> class="active" <% end %> ><%= t("privacy") %></a></li>
+            <li><a href="<%= cms_page_url(:page_name => 'about-us')%>" <% if segment(2) == "about-us"%> class="active" <% end %> ><%= t("about_us") %></a></li>
+            <li><a href="<%= contactus_url %>" <% if segment(1) == "contact-us"%> class="active" <% end %> ><%= t("contact_us") %></a></li>
+          </ul>
+        </div>
+        <% getGlobalData %>
+        <p class="pull-right"> &copy; 2016 - 2017 | <a href="#">www.<%= @site_title %>.com</a> | All Rights Reserved. </p>
+      </div>
+    </footer>
+  </div>
+</section>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<%
+  if @my_wallet.nil? == false
+    @my_wallet = @my_wallet.credit_amount
+  else
+    @my_wallet = 1
+  end
+%>
+<script>
+    $(document).ready(function(){
+        $("#frm_pay_request").validate({
+            onkeyup: false,
+            errorElement: "div",
+            errorClass: "text-danger",
+            rules: {
+                'pay_request[req_amount]': {
+                    required : true,
+                    // min : 1
+                    max: <%=  @my_wallet %>
+                }
+            },
+            messages: {
+                'pay_request[req_amount]': {
+                    required: "Please enter withdrawal amount",
+                    max: "Please enter value less than balance amount"
+                }
+            },
+            submitHandler: function(form) {
+                $('#btnSubmit').attr("disabled","disabled");
+                $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+                form.submit();
+                return true;
+            }
+        });
+
+    });
+</script>

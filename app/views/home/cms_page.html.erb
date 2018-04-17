@@ -1,0 +1,48 @@
+<% provide(:title,@page_title) %>
+<div style="background-image:url(../assets/front/img/slider.jpg);" class="contact-banner">
+  <div class="container">
+    <div class="contact-main-ttl-sec">
+      <div class="ttl-contact">
+        <%= @cms_data.title %>
+      </div>
+      <ul class="breadcrumba">
+        <li><a href="<%= root_url %>"><%= t("home") %></a></li>
+        <li class="active"><%= @cms_data.title %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="middlesec inner-pages">
+  <div class="basic-comparison-section">
+    <div class="container">
+      <div class="about-content">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <!-- <div class="about-imf"> -->
+              <!-- <img src="img/about_us.jpg"> -->
+              <%#= image_tag("front/img/about_us.jpg", :alt => "image") %>
+            <!-- </div> -->
+          <!-- </div> -->
+          <!-- <div class="col-md-6 col-sm-6 col-xs-12"> -->
+            <div class="about-desc">
+              <!-- <div class="about-ttl-right"> -->
+                <!-- <div class="sm-text">
+                  Know more about us -->
+                <!-- </div> -->   
+                <!-- <div class="ab-ttl"> -->
+                  
+                <!-- </div> -->
+              <!-- </div> -->
+              <div class="about-b-desc">
+                <p><%= @cms_data.content.html_safe %> </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  
+</section>

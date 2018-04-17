@@ -1,0 +1,508 @@
+<% provide(:title, "Product") %>
+<div id="page-wrapper" class="gray-bg">
+  <%= render "admin/includes/header" %>
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2></h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= admin_dashboard_url %>">Dashboard</a>
+        </li>
+        <li>
+          <a href="<%= admin_product_list_url() %>">Manage Products</a>
+        </li>
+        <li class="active">
+          <strong>Update Product</strong>
+        </li>
+      </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Update Product</h5>
+          </div>
+          <div class="ibox-content">
+            <%= form_for(:product, url: admin_update_product_url(:product_id => Base64.encode64(@product_data.id.to_s)) ,:html=>{:class=>"form-horizontal",:name=>'frm_product',:id=>'frm_product'}) do |f| %>
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-3 control-label">Language<span class="text-danger">*</span>:</label>-->
+                    <!--<div class="col-sm-9">-->
+                      <!--<%= f.select :lang_id,options_for_select([['Select Language', nil],['English', 17], ['Chinese', 12]],@product_data.lang_id) ,{},{:class => 'form-control'} %>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!-- <div class="hr-line-dashed"></div> -->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Category:</label>
+                    <div class="col-sm-9">
+                    <%#= f.select :category_id, options_for_select(TransCategory.joins('INNER JOIN mst_categories as c on c.id = trans_categories.category_id_fk').where('c.parent_id' => "0",:lang_id => 17).map{|p| [p.category_name, p.id]},@product_data.cat_id), {:include_blank => "Select Category"}, {:class=>"form-control"}%>
+                    <%  @category = TransCategory.find_by(:category_id_fk => @product_data.cat_id ) %>
+                    <input type="text" name="" class="form-control" readonly="" value="<%= @category.category_name %>">
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Subcategory:</label>
+                    <div class="col-sm-9">
+                    <%#= f.select(:subcat_id, options_for_select([["Select Subcategory",""]],@product_data.sub_cat_id),{},:class=>"form-control") %>
+                    <%  @subcategory = TransCategory.find_by(:category_id_fk => @product_data.sub_cat_id ) %>
+                      <input type="text" name="" class="form-control" readonly="" value="<%= @subcategory.category_name %>">
+                    </div>
+                </div>
+                <!--<div class="hr-line-dashed"></div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-3 control-label">Family Type<span class="text-danger">*</span>:</label>-->
+                    <!--<div class="col-sm-9">-->
+                      <!--<%#= f.select :family_type,options_for_select([['Select Family Type', nil],['Single', '1'], ['Couple', '2'],['Family', '3'], ['Single Parent Family', '4']], @product_data.family_type) ,{},{:class => 'form-control', readonly: ''} %>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Name<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :company_name, class: 'form-control', :value => @product_data.company_name, id: 'company_name' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Contact Email<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :contact_email, class: 'form-control', :value => @product_data.contact_email, id: 'contact_email' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Enquiry Email<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :enquiry_email, class: 'form-control', :value => @product_data.enquiry_email, id: 'enquiry_email' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Contact Mobile<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :contact_mobile, class: 'form-control', :value => @product_data.contact_mobile, id: 'contact_mobile' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Website<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :website, class: 'form-control', :value => @product_data.website, id: 'website' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Phone Number:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :phone_no, class: 'form-control', :value => @product_data.phone, id: 'phone_no' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Post Address:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_area :post_address, class: 'form-control', :value => @product_data.post_address, id: 'post_address' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Paypal Account<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :paypal_acc, class: 'form-control', :value => @product_data.paypal_account, id: 'paypal_acc' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Product Name<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :product_title, class: 'form-control', :value => @product_data.title, id: 'product_title' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Description<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_area :description, class: 'form-control', :value => @product_data.description, id: 'description' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <% if @product_data.cat_id == 2 or @product_data.cat_id == 3 %>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Single Price<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :single_price, class: 'form-control', :value => @product_data.single_amt, id: 'single_price' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Double Price<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :double_price, class: 'form-control', :value => @product_data.double_amt, id: 'double_price' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Family Price<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :family_price, class: 'form-control', :value => @product_data.family_amt, id: 'family_price' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Single Parent Family Price<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :single_parent_family_price, class: 'form-control', :value => @product_data.single_parent_family_amt, id: 'single_parent_family_price' %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <% end %>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Meets government requirement<span class="text-danger">*</span>:</label>
+                    <div class="col-sm-9">
+                      <%= f.select :meets_government_requirement,options_for_select([['Select Government Requirement', nil],['Yes', '1'], ['No', '0']],@product_data.instant_visa_letter) ,{},{:class => 'form-control'} %>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Instant visa letter<span class="text-danger">*</span>:</label>
+                    <div class="col-sm-9">
+                      <%= f.select :instant_visa_letter,options_for_select([['Select Government Requirement', nil],['Yes', '1'], ['No', '0']],@product_data.instant_visa_letter) ,{},{:class => 'form-control'} %>
+                    </div>
+                </div>
+
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">In-hospital treatment:<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.cktext_area :in_hospital_treatment, class: 'form-control', :value => @product_in_hospital.description, id: 'in_hospital_treatment', rows: "10" %>
+                    <%= f.label "Please enter In-hospital treatment contents.",style:"display: none;", class: "error hidden", id: "labelProductError" %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Out-of-hospital treatment:<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.cktext_area :out_of_hospital_treatment, class: 'form-control', :value => @product_out_hospital.description, id: 'out_of_hospital_treatment', rows: "10" %>
+                    <%= f.label "Please enter Out-of-hospital treatment contents.",style:"display: none;", class: "error hidden", id: "labelProductError" %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Emergency Treatment:<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.cktext_area :emergency_treatment, class: 'form-control', :value => @TransProductEmergencyTreatment.description, id: 'emergency_treatment', rows: "10" %>
+                    <%= f.label "Please enter emergency treatment contents.",style:"display: none;", class: "error hidden", id: "labelProductError" %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Other Benefits:<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.cktext_area :other_benefits, class: 'form-control', :value => @TransProductOtherTreatment.description, id: 'other_benefits', rows: "10" %>
+                    <%= f.label "Please enter other benefits.",style:"display: none;", class: "error hidden", id: "labelProductError" %>
+                  </div>
+                </div>
+
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Prescription Medicines:<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.cktext_area :prescription_medicines, class: 'form-control', :value => @TransProductOtherTreatment.prescription_medicines, id: 'prescription_medicines', rows: "10" %>
+                    <%= f.label "Please enter prescription medicines.",style:"display: none;", class: "error hidden", id: "labelProductError" %>
+                  </div>
+                </div>
+
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Exclusions:<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.cktext_area :exclusions, class: 'form-control', :value => @TransProductWaitingPeriod.pre_existing_conditions, id: 'exclusions', rows: "10" %>
+                    <%= f.label "Please enter exclusions.",style:"display: none;", class: "error hidden", id: "labelProductError" %>
+                  </div>
+                </div>
+
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Waiting Periods:<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.cktext_area :waiting_periods, class: 'form-control', :value => @TransProductWaitingPeriod.description, id: 'waiting_periods', rows: "10" %>
+                    <%= f.label "Please enter waiting periods.",style:"display: none;", class: "error hidden", id: "labelProductError" %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Extra Features:<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.cktext_area :extra_features_refund_policy, class: 'form-control', :value => @product_data.extra_features, id: 'extra_features_refund_policy', rows: "10" %>
+                    <%= f.label "Please enter extra features.",style:"display: none;", class: "error hidden", id: "labelProductError" %>
+                  </div>
+                </div>
+
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                <label class="col-sm-3 control-label">Hospital Excess<span class="text-danger">*</span>:</label>
+                <div class="col-sm-9">
+                <%= f.text_field :hospital_excess, class: 'form-control', :value => @product_data.hospital_excess, id: 'hospital_excess' %>
+                </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Visa Compliance<span class="text-danger">*</span>:</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :visa_compliance, class: 'form-control', :value => @product_data.visa_compliance, id: 'visa_compliance' %>
+                  </div>
+                </div>
+
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Product Previous Image:</label>
+                  <div class="col-sm-9">
+                      <% if @product_data.product_image.nil? == false %>
+                          <%= image_tag("/product_image/"+(@product_data.product_image.to_s) ,:alt => "product_image",:width => "100") %>
+                      <% end %>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Product Image:</label>
+                    <div class="col-sm-9">
+                      <%= f.file_field :product_image, class: 'form-control', :id => 'product_image' %>
+                    </div>
+                  </div>
+                <!--<div class="hr-line-dashed"></div>-->
+                <!--<div class="form-group">-->
+                  <!--<label class="col-sm-3 control-label">Product Previous Document:</label>-->
+                  <!--<div class="col-sm-9">-->
+                    <!--<div class="row">-->
+                      <!--<% if @product_data.product_document.blank? == false %>-->
+                          <!--<%= image_tag("/product_document/"+(@product_data.product_document) ,:alt => "product_image",:width => "100") %>-->
+                      <!--<% end %>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Product Document:</label>
+                    <div class="col-sm-9">
+                      <%= f.file_field :product_document, class: 'form-control', :id => 'product_document' %>
+                    </div>
+                  </div>
+                <div class="hr-line-dashed"></div>
+                
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Status<span class="text-danger">*</span>:</label>
+                    <div class="col-sm-9">
+                      <%= f.select :status,options_for_select([['Select Status', nil],['Pending', 'Pending'], ['Active', 'Active']],@product_data.status) ,{},{:class => 'form-control'} %>
+                    </div>
+                </div>
+
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                  <div class="col-sm-4 col-sm-offset-2">
+                    <!-- <button type="submit" class="btn btn-white">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button> -->
+                    <%= f.submit "Save Changes", class: "btn btn-primary",id:"btnSubmit" %>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+  $(document).ready(function(){
+    $("#frm_product").validate({
+      onkeyup: false,
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'product[lang_id]': {
+          required : true
+        },
+        'product[product_title]': {
+          required : true
+          // remote:{
+          //   url: "<%= admin_check_role_url %>",
+          //   type: "get",
+          // }
+        },
+        'product[category_id]': {
+          required : true
+        },
+        'product[subcat_id]': {
+          required : true
+        },
+        /*'product[monthly_price]': {
+          required : true,
+          number: true
+        },
+        'product[yearly_price]': {
+          required : true,
+          number: true
+        },*/
+        'product[single_price]': {
+            required : true,
+            number: true,
+            min:1
+        },
+        'product[double_price]': {
+            required : true,
+            number: true,
+            min:1
+        },
+        'product[family_price]': {
+            required : true,
+            number: true,
+            min:1
+        },
+        'product[single_parent_family_price]': {
+            required : true,
+            number: true,
+            min:1
+        },
+        'product[product_image]': {
+          accept: "jpg|jpeg|png|gif|bmp|tiff"
+        },
+        'product[product_document]': {
+          accept: "pdf|doc"
+        },
+        "product[contact_email]":{
+          required:true,
+          email:true
+          // remote:{
+          //   url:"<%= admin_check_user_email_url %>",
+          //   method:"get"
+          // }
+        },
+        "product[enquiry_email]":{
+          required:true,
+          email: true
+          // remote:{
+          //   url:"<%= admin_check_user_email_url %>",
+          //   method:"get"
+          // }
+        },
+        "product[contact_mobile]":{
+          required:true,
+          maxlength: 12,
+          number: true
+        },
+        "product[phone_no]":{
+          number:true
+        },
+        "product[website]":{
+          required:true
+        },
+        "product[paypal_acc]":{
+          required:true,
+          email: true
+        }
+      },
+      messages: {
+        'product[lang_id]': {
+          required: "Please select language."
+        },
+        'product[role_name]': {
+          required: "Please enter product name."
+          // remote:"Entered role already exists."
+        },
+        'product[category_id]': {
+          required : "Please select category."
+        },
+        'product[subcat_id]': {
+          required : "Please select subcategory."
+        },
+        /*'product[monthly_price]': {
+          required: "Please enter product monthly price.",
+          number: "Please enter digits only"
+        },
+        'product[yearly_price]': {
+          required: "Please enter product yearly price.",
+          number: "Please enter digits only"
+        },*/
+        'product[single_price]': {
+            required: "Please enter single price.",
+            number: "Please enter number only"
+        },
+        'product[double_price]': {
+            required: "Please enter double price.",
+            number: "Please enter number only"
+        },
+        'product[family_price]': {
+            required: "Please enter family price.",
+            number: "Please enter number only"
+        },
+        'product[single_parent_family_price]': {
+            required: "Please enter single parent family price.",
+            number: "Please enter number only"
+        },
+        'product[product_image]': {
+          accept: "Please select jpg,jpeg,png,gif,bmp images only."
+        },
+        'product[product_document]': {
+          accept: "Please select only pdf or word file"
+        },
+        "product[company_name]":{
+          required:"Please enter name."
+        },
+        "product[contact_email]":{
+          required: "Please enter contact email.",
+          email:"Please enter a valid email."
+          // remote:"Entered email already exists."
+        },
+        "product[enquiry_email]":{
+          required: "Please enter enquiry email.",
+          email:"Please enter a valid email."
+          // remote:"Entered email already exists."
+        },
+        "product[contact_mobile]":{
+          required: "Please enter contact mobile.",
+          maxlength: "Contact number should be less than 12 digit.",
+          number: "Please enter only number."
+        },
+        "product[phone_no]":{
+         number: "Please enter only number."
+        },
+        "product[website]":{
+          required:"Please enter your website."
+        },
+        "product[paypal_acc]":{
+          required: "Please enter your paypal account.",
+          email: "Please enter valid email"
+        }
+      },
+      submitHandler: function(form) {
+        // do other things for a valid form
+        $('#btnSubmit').attr("disabled","disabled");
+        $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+        form.submit();
+        return true;
+      }
+    });
+
+    $("#product_category_id").change(function(){
+      $("#product_subcat_id").html("<option value=''><%= "Select Subcategory" %></option>");
+      var cat_id = $(this).val();
+      $.ajax({
+        type:"GET",
+        url:"<%= admin_get_subcategory_url %>",
+        dataType:"html",
+        data: {cat_id: cat_id},
+        success:function(response){
+          if(response != ''){
+            $("#product_subcat_id").html(response);
+          }
+        }
+      });
+    });
+
+  });
+</script>

@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="card card-container">
+    <!--<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />-->
+    <h2 class="text-center">SignUp</h2>
+    <p id="profile-name" class="profile-name-card"></p>
+    <%= form_for(:news, url: signup_create_url, :html=>{:class=>'form-signin',:name=>'frm_signup',:id=>'frm_signup'}) do |f| %>
+        <span id="reauth-email" class="reauth-email"></span>
+        <%= f.text_field :title, class: 'form-control', id: 'title', value: '', placeholder:'Title', autofocus: true %>
+        <%= f.text_area :description, class: 'form-control', :value => '',placeholder:'Description' %>
+        <%= f.text_field :url, class: 'form-control', id: 'url', value: '', placeholder:'url (Optional)' %>
+        
+        <%= f.submit "Submit", class: "btn btn-lg btn-primary btn-block btn-signin",id:"btnSubmit" %>
+    <% end %>
+    <!-- /form -->
+  </div><!-- /card-container -->
+</div><!-- /container -->
+
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+    $(document).ready(function(){
+        $("#frm_signup").validate({
+            onkeyup: false,
+            errorElement: "div",
+            errorClass: "text-danger",
+            rules: {
+                'news[title]': {
+                    required : true
+                },
+                'news[description]': {
+                    required : true,
+                    maxLength: 200
+                },
+                'news[url]': {
+                    url : true
+                }
+            },
+            messages: {
+                'news[title]': {
+                    required: "Please enter news title."
+                },
+                'news[description]': {
+                    required: "Please enter news description."
+                },
+                'news[address]': {
+                    required: "Please enter address."
+                },
+                'news[user_email]': {
+                    required: "Please enter your email.",
+                    email:"Please enter a valid email.",
+                    remote:"Entered email already exists."
+                },
+                'news[username]': {
+                    required: "Please enter your username.",
+                    remote:"Entered username already exists."
+                },
+                'news[phone_number]': {
+                    required: "Please enter your phone number."
+                }
+            },
+            submitHandler: function(form) {
+                $('#btnSubmit').attr("disabled","disabled");
+                $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+                form.submit();
+                return true;
+            }
+        });
+    });
+</script>

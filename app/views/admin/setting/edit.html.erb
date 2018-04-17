@@ -1,0 +1,172 @@
+<% provide(:title, "Global Setting") %>
+<div id="page-wrapper" class="gray-bg">
+	<%= render "admin/includes/header" %>
+	<div class="row wrapper border-bottom white-bg page-heading">
+		<div class="col-lg-10">
+			<!-- <h2>Update Global Setting</h2> -->
+			<h2></h2>
+			<ol class="breadcrumb">
+				<li>
+					<a href="<%= admin_dashboard_url %>">Dashboard</a>
+				</li>
+				<li>
+					<a href="<%= admin_global_setting_list_url %>">Manage Global Setting</a>
+				</li>
+				<li class="active">
+					<strong>Update Global Setting</strong>
+				</li>
+			</ol>
+		</div>
+		<div class="col-lg-2">
+		</div>
+	</div>
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>Update Global Setting</h5>
+						<!-- <div class="ibox-tools">
+						<a class="collapse-link">
+						<i class="fa fa-chevron-up"></i>
+					</a>
+					<a href="#" data-toggle="dropdown" class="dropdown-toggle">
+					<i class="fa fa-wrench"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-user">
+				<li><a href="#">Config option 1</a>
+			</li>
+			<li><a href="#">Config option 2</a>
+		</li>
+	</ul>
+	<a class="close-link">
+	<i class="fa fa-times"></i>
+</a>
+</div> -->
+</div>
+<div class="ibox-content">
+		<%= form_for(:global_settings, url: admin_update_global_settings_url(:global_id => Base64.encode64(@global_settings.id.to_s)),:html=>{:class=>"form-horizontal",:name=>'frm_edit_global_settings',:id=>'frm_edit_global_settings'}) do |f| %>
+		<div class="form-group"><label class="col-sm-2 control-label">Parameter Name</label>
+			<div class="col-sm-10">
+				<%= f.text_field :name, class: 'form-control', :value =>  @global_settings.name, :readonly => true %>
+			</div>
+		</div>
+		<div class="hr-line-dashed"></div>
+		<% t = Time.now %>
+		<div class="form-group"><label class="col-sm-2 control-label">Parameter Value<span class="text-danger">*</span>:</label>
+			<% if @global_settings.key != 'promoter-comission' %>
+				<div class="col-sm-10">
+					<% if @global_settings.key == 'date-format' %>
+					<%= f.select(:value, options_for_select([[t.strftime('%d.%m.%Y %T'), "%d.%m.%Y %T"], [t.strftime('%d-%b-%Y %T'), '%d-%b-%Y %T'], [t.strftime('%m/%d/%Y %T'), '%m/%d/%Y %T']],@global_settings.value),{}, class: 'form-control')%>
+					<% elsif @global_settings.key == 'promoter-homepage-video' %>
+						<%= f.file_field :promoter_homepage_video,:value =>'' %>
+					<% elsif @global_settings.key == 'site-logo' %>
+						<%= f.file_field :site_logo,:value =>'' %>
+					<% else %>
+						<%= f.text_field :value, class: 'form-control', placeholder:'Enter Parameter Value', :value => @global_settings.value %>
+					<% end %>
+					<!-- <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span> -->
+				</div>
+			<% else %>
+				<div class="col-sm-3">
+					<%= f.text_field :value, class: 'form-control', placeholder:'Enter Parameter Value', :value => @global_settings.value %> <b>In percentage(%)</b>
+				</div>
+			<% end %>	
+
+		</div>
+		<div class="hr-line-dashed"></div>
+		<div class="form-group">
+			<div class="col-sm-4 col-sm-offset-2">
+				<!-- <button type="submit" class="btn btn-white">Cancel</button>
+				<button type="submit" class="btn btn-primary">Save changes</button> -->
+				<%= f.submit "Save Changes", class: "btn btn-primary",id:"btnSubmit" %>
+						<%= f.hidden_field :edit_id,  :value=> @global_settings.id %>
+			</div>
+		</div>
+	<% end %>
+</div>
+</div>
+</div>
+</div>
+</div>
+<%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script type="text/javascript">
+jQuery.validator.addMethod("member_num_format", function(value, element) {
+	return this.optional(element) || /^[.0-9\s]+$/i.test(value);
+}, "Please enter alphabet characters only.");
+jQuery(document).ready(function (e) {
+	jQuery("#frm_edit_global_settings").validate({
+		onkeyup: false,
+		errorElement: "div",
+		errorClass: "text-danger",
+		rules: {
+			'global_settings[value]':{
+				required:true
+				<% if @global_settings.name == "Site Email" or @global_settings.name == "Contact Email" %>
+				,email:true
+				<% end %>
+
+				<% if @global_settings.name == "Facebook Link" or @global_settings.name == "Youtube Link" or @global_settings.name == "Twitter Link" or @global_settings.name == "Linkedin Link"  or @global_settings.name == "Pinterest Link" or @global_settings.name == "Instagram Link" %>
+				,url: true
+				<% end %>
+
+				<% if @global_settings.name == "Contact Number" %>
+				 ,digits: true
+				 ,minlength:7
+				 ,maxlength:12
+				<% end %>
+				<% if @global_settings.name == "promoter-homepage-video" %>
+				 ,accept: 'mp4|swf'
+				<% end %>
+				<% if @global_settings.name == "site-logo" %>
+				 ,accept: 'jpeg|jpg|png|gif'
+				<% end %>
+			}
+		},
+		messages:{
+
+			'global_settings[value]':{
+				<% if @global_settings.name == "Site Email" or @global_settings.name == "Contact Email" %>
+				required:"Please enter an email address.",
+				email:"Please enter a valid email address."
+				<% end %>
+
+				<% if @global_settings.name == "Facebook Link" or @global_settings.name == "Youtube Link" or @global_settings.name == "Twitter Link" or @global_settings.name == "Linkedin Link"  or @global_settings.name == "Pinterest Link" or @global_settings.name == "Instagram Link" %>
+				url: "Please enter valid site address."
+				<% end %>
+
+				<% if @global_settings.name == "Contact Number" %>
+				required:"Please enter contact number.",
+				digits:"please enter only digits.",
+				minlength:"Please enter atleast 7 digits",
+				maxlength:"Please enter only 12 digits"
+				<% end %>
+				<% if @global_settings.name == "promoter-homepage-video" %>
+				required:"Please select a video.",
+				accept: "Please select valid video format."
+				<% end %>
+				<% if @global_settings.name == "Site Title" %>
+				required:"Please enter a site title."
+				<% end %>
+				<% if @global_settings.name == "facebook_app_id" %>
+				required:"Please enter facebook app id."
+				<% end %>
+				<% if @global_settings.name == "contact_address" %>
+				required:"Please enter facebook app id."
+				<% end %>
+				<% if @global_settings.name == "site-logo" %>
+				required:"Please select a site logo.",
+				accept: "Please select valid image format."
+				<% end %>
+				
+			}
+		}
+
+	});
+	$.validator.addMethod('validMobile', function (value, element) {
+    	return this.optional(element) || /^(\+?61|0)\d{9}$/.test(value);
+	}, "Please enter a valid phone number");
+});
+</script>

@@ -1,0 +1,23 @@
+.dd-container{
+	font-size:12px;
+	font-family:verdana;
+}
+.demo-content
+{
+	background: none repeat scroll 0 0 #DADADA;
+	border: 2px solid #DDDDDD;
+	font-size: 12px;
+	width: 900px;
+	padding:20px;
+	margin:0px auto;
+}
+.demo-content h3{
+	padding:0px;
+	margin:0px 0px 20px;
+	font-size:18px;
+}
+.spacer {
+	clear: both;
+	height: 20px;
+	width: 100%;
+}

@@ -1,0 +1,122 @@
+<% provide(:title, "Permission") %>
+<div id="page-wrapper" class="gray-bg">
+	<%= render "admin/includes/header" %>
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2></h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= admin_dashboard_url %>">Dashboard</a>
+        </li>
+        <li>
+					<a href="<%= admin_role_list_url %>">Manage Role</a>
+				</li>
+				<li class="active">
+					<strong>Update Permission</strong>
+				</li>
+      </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Update Permission</h5>
+                        </div>
+                        <div class="ibox-content">
+                          <%= form_for(:privilege, url: admin_role_permission_update_url(:role_id => Base64.encode64(@role.id.to_s)) ,:html=>{:class=>"form-horizontal",:name=>'frm_update_permission',:id=>'frm_update_permission'}) do |f| %>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Role Name</label>
+                            <div class="col-sm-10">
+                              <%= f.text_field :permission_name, class: 'form-control', :value => @role.name, id: 'permission_name', :readonly=>"readonly" %>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Select Permisssion<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+															<%= f.collection_select :role_name,
+                                  MstPermission.all,:id,:name,
+                                  {selected: @selected_roles.map(&:permission_id)},
+                                  { class: 'chosen-select', :multiple=>true, :style=>"width:350px;"}
+                              %>
+                    
+															<div id="permission_role_error"></div>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                              <%= f.submit "Save Changes", class: "btn btn-primary",id:"btnSubmit" %>
+                            </div>
+                          </div>
+                        <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	</div>
+	<%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<%= stylesheet_link_tag 'admin/plugins/chosen/chosen' %>
+<%= javascript_include_tag 'admin/plugins/chosen/chosen.jquery' %>
+<script>
+	$(document).ready(function(){
+    $("#frm_update_permission").validate({
+      onkeyup: false,
+      errorElement: "div",
+      errorClass: "text-danger",
+			ignore: ":hidden:not(select)",
+			errorPlacement: function(error, element) {
+              error.appendTo("div#permission_role_error");
+          },
+          showErrors: function(errorMap, errorList) {
+              $("#frm_update_permission").find("input").each(function() {
+                  $(this).removeClass("error");
+              });
+              $("div#permission_role_error").html("");
+              if(errorList.length) {
+                  $("div#permission_role_error").html(errorList[0]['message']).addClass('text-danger');
+                  $(errorList[0]['element']).addClass("error");
+              }
+          },
+      rules: {
+        'privilege[permission_name]': {
+          required : true
+        },
+        'privilege[role_name][]': {
+          required : true
+        }
+      },
+      messages: {
+        'privilege[permission_name]': {
+          required: "Please enter permission name."
+        },
+        'privilege[role_name][]': {
+          required: "Please select at-least one role for this permission."
+        }
+      },
+      submitHandler: function(form) {
+        // do other things for a valid form
+        $('#btnSubmit').attr("disabled","disabled");
+        $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+          form.submit();
+          return true;
+      }
+    });
+		var config = {
+          '.chosen-select'           : {},
+          '.chosen-select-deselect'  : {allow_single_deselect:true},
+          '.chosen-select-no-single' : {disable_search_threshold:10},
+          '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+          '.chosen-select-width'     : {width:"95%"}
+          }
+      for (var selector in config) {
+          $(selector).chosen(config[selector]);
+      }
+	});
+</script>

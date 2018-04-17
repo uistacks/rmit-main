@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="card card-container">
+    <!--<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />-->
+    <h2 class="text-center">Login</h2>
+    <p id="profile-name" class="profile-name-card"></p>
+    <%= form_for(:signin, url: user_login_url, :html=>{:class=>'form-signin',:name=>'frm_signin',:id=>'frm_signin'}) do |f| %>
+
+        <span id="reauth-email" class="reauth-email"></span>
+        <%= f.text_field :user_email, class: 'form-control', id: 'user_email', value: '', placeholder:'User Email' %>
+        <%= f.password_field :password, class: 'form-control' , placeholder:'Password'%>
+        <div id="remember" class="checkbox">
+          <% if cookies[:remember_me] =='1' %>
+              <%= f.label :remember_me do %>
+                  <%= f.check_box :remember_me, {:checked=>true} %>
+                  <span>Remember me</span>
+              <% end %>
+          <% else %>
+              <%= f.label :remember_me do %>
+                  <%= f.check_box :remember_me %>
+                  <span>Remember me</span>
+              <% end %>
+          <% end %>
+        </div>
+        <%= f.submit "Login", class: "btn btn-lg btn-primary btn-block btn-signin", id:"btnSubmit"  %>
+    <% end %>
+    <!-- /form -->
+    <a href="<%= forgot_password_url %>" class="forgot-password">
+      Forgot the password?
+    </a>
+  </div><!-- /card-container -->
+</div><!-- /container -->
+
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+    $(document).ready(function(){
+        $("#frm_signin").validate({
+            onkeyup: false,
+            errorElement: "div",
+            errorClass: "text-danger",
+            rules: {
+                'signin[user_email]': {
+                    required : true,
+                    email:true
+                },
+                "signin[password]":{
+                    required:true,
+                    minlength: 8
+                }
+            },
+            messages: {
+                'signin[user_email]': {
+                    required: "Please enter email address.",
+                    email:"Please enter a valid email."
+                },
+                "signin[password]":{
+                    required:"Please enter password.",
+                    minlength:"Please enter atleast 8 characters."
+                }
+            },
+            submitHandler: function(form) {
+                // do other things for a valid form
+                $('#btnSubmit').attr("disabled","disabled");
+                $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+                form.submit();
+                return true;
+            }
+        });
+    });
+</script>
+

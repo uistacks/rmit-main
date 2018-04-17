@@ -1,0 +1,156 @@
+<% provide(:title, "Newsletter") %>
+<div id="page-wrapper" class="gray-bg">
+	<%= render "admin/includes/header" %>
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2></h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= admin_dashboard_url %>">Dashboard</a>
+        </li>
+        <li>
+         <a href="<%= admin_newsletter_list_url %>">Manage Newsletter</a>
+       </li>
+       <li class="active">
+         <strong>Send Newsletter</strong>
+       </li>
+     </ol>
+   </div>
+   <div class="col-lg-2">
+   </div>
+ </div>
+ <div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Send Newsletter</h5>
+        </div>
+        <div class="ibox-content">
+          <%= form_for(:send_newsletter, url: admin_newsletter_send_save_url(:news_id => Base64.encode64(@newletter.id.to_s)) ,:html=>{:class=>"form-horizontal",:name=>'frm_send_newsletter',:id=>'frm_send_newsletter'}) do |f| %>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Newsletter subject<span class="text-danger">*</span>:</label>
+            <div class="col-sm-10">
+              <%= f.text_field :newsletter_subject, class: 'form-control', placeholder:'Newsletter subject',:value => @newletter.newsletter_subject %>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Select User<span class="text-danger">*</span>:</label>
+            <div class="col-sm-10">
+              <%= f.select :user_status,{} ,{},{:class => 'form-control question',:id=> "user_status"} do %>
+              <%= options_for_select([['Select User', ''], ['Subscribers user', '3'], ['Active', '1'], ['Inactive', '0'], ['Banned', '2']]) %>
+              <% end %>
+            </div>
+          </div>
+          <div style="display:none" id="for_list">
+            <div class="hr-line-dashed"></div>
+            <div class="form-group" >
+              <label class="col-sm-2 control-label">List of Emails<span class="text-danger">*</span>:</label>
+              <div class="col-sm-10">
+                <%= f.text_area :list_of_users, class: 'form-control',:id => "list_of_users", placeholder:'List of Emails',:value =>'' %>
+              </div>
+            </div>
+          </div>
+          <!-- <div style="display:none" id="attach">
+            <div class="hr-line-dashed"></div>
+            <div class="form-group" >
+              <label class="col-sm-2 control-label">Select Attachement:</label>
+              <div class="col-sm-10">
+                <%= f.file_field :attachement, class: 'form-control', :id => 'attachement' %>
+              </div>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div> -->
+          <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+              <%= f.submit "Send", class: "btn btn-primary",id:"btnSubmit" %>
+              <a href="<%= admin_newsletter_list_url %>" class="btn btn-primary">Cancel</a>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    jQuery("#frm_send_newsletter").validate({
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'send_newsletter[newsletter_subject]':{
+          required: true,
+          minlength: 3
+        },
+        'send_newsletter[user_status]': {
+          required: true
+        },
+        'send_newsletter[list_of_users]': {
+          required: true
+        }
+      },
+      messages: {
+        'send_newsletter[newsletter_subject]':{
+          required: "Please enter newsletter subject.",
+          minlength: "Please enter at least 3 characters."
+        },
+        'send_newsletter[user_status]': {
+          required: "Please select user type to send newsletter."
+        },
+        'send_newsletter[list_of_users]': {
+          required:"Please select at least one user"
+        }
+      },
+      submitHandler: function (form) {
+        $('#btnSubmit').addClass('disabled');
+        form.submit();
+      }
+    });
+  });
+  $(function() {
+    $(document).on('change', '.question', function() {
+    // this == the element that fired the change event
+    display_list_div();
+  });
+  });
+  function display_list_div()
+  {
+
+    var user_status = $("#user_status").val();
+    if (user_status == "")
+    {
+      $("#for_list,#attach").css("display", "none");
+    }
+    else
+    {
+      $.ajax({
+        url: "<%= admin_newsletter_getallusersbystatus_url %>",
+        type: "get",
+        data: {'user_status': user_status},
+        dataType:"json",              
+        success: function (res)
+        {
+          $("#for_list").css("display", "block");
+          $("#list_of_users").val('');
+          $("#list_of_users").val(res.user_emails);
+          $("#btnSubmit").css("display", "inline-block");
+          $("#attach").css("display", "block");
+
+          if (!res.user_emails) {                                
+            $("#for_list").css("display", "none");
+            $("#attach").css("display", "none");
+            $("#list_of_users").val('');
+            $("#btnSubmit").css("display", "none");
+          }
+        }
+      });
+
+    }
+  }
+</script>

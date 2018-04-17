@@ -1,0 +1,94 @@
+<% provide(:title, "How It Work") %>
+<div id="page-wrapper" class="gray-bg">
+	<%= render "admin/includes/header" %>
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2></h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= admin_dashboard_url %>">Dashboard</a>
+        </li>
+        <li>
+         <a href="<%= admin_how_it_work_list_url %>">Manage How it Works</a>
+       </li>
+       <li class="active">
+         <strong>Add How it Works</strong>
+       </li>
+     </ol>
+   </div>
+   <div class="col-lg-2">
+   </div>
+ </div>
+ <div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Add How it Works</h5>
+        </div>
+        <div class="ibox-content">
+          <%= form_for(:add_howitwork, url: admin_create_how_it_work_url ,:html=>{:class=>"form-horizontal",:name=>'frm_how_it_work',:id=>'frm_how_it_work'}) do |f| %>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Description<span class="text-danger">*</span>:</label>
+            <div class="col-sm-10">
+              <%= f.text_area :description, class: 'form-control', :value => '', id: 'description', row: "2" %>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Icon<span class="text-danger">*</span>:</label>
+            <div class="col-sm-10">
+              <%= f.file_field :icon,:value =>'' %>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+              <%= f.submit "Save Changes", class: "btn btn-primary",id:"btnSubmit" %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+	$(document).ready(function(){
+    $("#frm_how_it_work").validate({
+      onkeyup: false,
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'add_howitwork[description]': {
+          required : true,
+          maxlength: 100
+        },
+        'add_howitwork[icon]': {
+          required : true,
+          accept: "jpg|jpeg|bmp|gif|tiff|png"
+        }
+      },
+      messages: {
+        'add_howitwork[description]': {
+          required: "Please enter description.",
+          maxlength: "Discription should be less than 100 characters"
+        },
+        'add_howitwork[icon]': {
+          required: "Please select icon.",
+          accept: "Please select valid image type"
+        }
+      },
+      submitHandler: function(form) {
+        // do other things for a valid form
+        $('#btnSubmit').attr("disabled","disabled");
+        $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+        form.submit();
+        return true;
+      }
+    });
+  });
+</script>

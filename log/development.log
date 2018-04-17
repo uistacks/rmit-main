@@ -1,0 +1,584 @@
+Started GET "/admin/admin-edit/Mw==%0A" for ::1 at 2018-04-17 20:15:53 +0530
+DEPRECATION WARNING: ActiveRecord::Base.raise_in_transactional_callbacks= is deprecated, has no effect and will be removed without replacement. (called from block (3 levels) in <class:Railtie> at /usr/local/lib/ruby/gems/2.4.0/gems/activerecord-5.0.7/lib/active_record/railtie.rb:113)
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+DEPRECATION WARNING: before_filter is deprecated and will be removed in Rails 5.1. Use before_action instead. (called from <class:ApplicationController> at /home/administrator/Desktop/railsapp/app/controllers/application_controller.rb:12)
+Processing by Admin::AdminController#edit as HTML
+  Parameters: {"user_id"=>"Mw==\n"}
+  [1m[36mMstUser Load (0.4ms)[0m  [1m[34mSELECT  `mst_users`.* FROM `mst_users` WHERE `mst_users`.`id` = 1 LIMIT 1[0m
+  [1m[36mMstUser Load (0.4ms)[0m  [1m[34mSELECT  `mst_users`.* FROM `mst_users` WHERE `mst_users`.`id` = 1 LIMIT 1[0m
+  [1m[36mMstUser Load (0.2ms)[0m  [1m[34mSELECT  `mst_users`.* FROM `mst_users` WHERE `mst_users`.`id` = 1 LIMIT 1[0m
+  [1m[36mMstUser Load (0.3ms)[0m  [1m[34mSELECT  `mst_users`.* FROM `mst_users` WHERE `mst_users`.`id` = 1 LIMIT 1[0m
+  [1m[36mMstRole Load (0.4ms)[0m  [1m[34mSELECT  `mst_roles`.* FROM `mst_roles` WHERE `mst_roles`.`id` = 1 LIMIT 1[0m
+  [1m[36mMstSetting Load (0.3ms)[0m  [1m[34mSELECT `mst_settings`.* FROM `mst_settings` ORDER BY `mst_settings`.`id` ASC[0m
+  [1m[36mTransUserInformation Load (0.5ms)[0m  [1m[34mSELECT  `trans_user_informations`.* FROM `trans_user_informations` WHERE `trans_user_informations`.`user_id` = 1 LIMIT 1[0m
+  [1m[36mMstUser Load (1.0ms)[0m  [1m[34mSELECT  `mst_users`.* FROM `mst_users` WHERE `mst_users`.`id` = 3 LIMIT 1[0m
+  Rendering admin/admin/edit.html.erb within layouts/admin
+  Rendered admin/includes/_header.html.erb (5.7ms)
+  [1m[36mTransUserInformation Load (1.0ms)[0m  [1m[34mSELECT  `trans_user_informations`.* FROM `trans_user_informations` WHERE `trans_user_informations`.`user_id` = 3 LIMIT 1[0m
+  [1m[36mMstRole Load (0.7ms)[0m  [1m[34mSELECT `mst_roles`.* FROM `mst_roles` WHERE (`mst_roles`.`id` NOT IN (1, 2))[0m
+  Rendered admin/includes/_footer.html.erb (0.7ms)
+  Rendered admin/admin/edit.html.erb within layouts/admin (189438.1ms)
+  [1m[36mMstUser Load (1.4ms)[0m  [1m[34mSELECT  `mst_users`.* FROM `mst_users` WHERE `mst_users`.`id` = 1 LIMIT 1[0m
+  [1m[36mMstRole Load (0.5ms)[0m  [1m[34mSELECT  `mst_roles`.* FROM `mst_roles` WHERE `mst_roles`.`id` = 1 LIMIT 1[0m
+  [1m[36mMstSetting Load (0.4ms)[0m  [1m[34mSELECT `mst_settings`.* FROM `mst_settings` ORDER BY `mst_settings`.`id` ASC[0m
+  [1m[36mTransUserInformation Load (0.5ms)[0m  [1m[34mSELECT  `trans_user_informations`.* FROM `trans_user_informations` WHERE `trans_user_informations`.`user_id` = 1 LIMIT 1[0m
+  Rendered admin/includes/_leftnav.html.erb (7.5ms)
+  Rendered admin/includes/_rightsidebar.html.erb (9.0ms)
+Completed 200 OK in 190307ms (Views: 189717.7ms | ActiveRecord: 13.0ms)
+
+
+Started GET "/assets/croppie.self-fc08049faed594ad2fb0a7a41f7b0d1137fc2f01bab8a4d3049c824c68f2c56b.css?body=1" for ::1 at 2018-04-17 20:19:03 +0530
+Started GET "/assets/croppie.self-70bfcb21fe143cc7a426af72fb8feae178d06833988668a0448dbb3feb42cc1d.js?body=1" for ::1 at 2018-04-17 20:19:03 +0530
+Started GET "/assets/admin/profile.self-37c62d659af029dd3bcde963b18e243579828e5fab6053ec005ac333f969b8ef.js?body=1" for ::1 at 2018-04-17 20:19:04 +0530
+Started GET "/assets/admin/gravatar-96216e4eac20f8b160d1d7df73e1d1488491bf3d94771cea01e4def120a2cd1e.jpg" for ::1 at 2018-04-17 20:19:04 +0530
+Started GET "/images/admin/a1.jpg" for ::1 at 2018-04-17 20:19:04 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/images/admin/a1.jpg"):
+  
+actionpack (5.0.7) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.7) lib/rails/engine.rb:522:in `call'
+puma (3.11.4) lib/puma/configuration.rb:225:in `call'
+puma (3.11.4) lib/puma/server.rb:632:in `handle_request'
+puma (3.11.4) lib/puma/server.rb:446:in `process_client'
+puma (3.11.4) lib/puma/server.rb:306:in `block in run'
+puma (3.11.4) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.6ms)
+Started GET "/images/admin/a2.jpg" for ::1 at 2018-04-17 20:19:04 +0530
+  Rendered collection of /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_route.html.erb [226 times] (114.8ms)
+Started GET "/images/admin/a3.jpg" for ::1 at 2018-04-17 20:19:04 +0530
+  
+Started GET "/images/admin/a4.jpg" for ::1 at 2018-04-17 20:19:04 +0530
+Started GET "/images/admin/a8.jpg" for ::1 at 2018-04-17 20:19:04 +0530
+ActionController::RoutingError (No route matches [GET] "/images/admin/a2.jpg"):
+  
+actionpack (5.0.7) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.7) lib/rails/engine.rb:522:in `call'
+puma (3.11.4) lib/puma/configuration.rb:225:in `call'
+puma (3.11.4) lib/puma/server.rb:632:in `handle_request'
+puma (3.11.4) lib/puma/server.rb:446:in `process_client'
+puma (3.11.4) lib/puma/server.rb:306:in `block in run'
+puma (3.11.4) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_table.html.erb (3.6ms)
+Started GET "/images/admin/a7.jpg" for ::1 at 2018-04-17 20:19:04 +0530
+  
+  
+ActionController::RoutingError (No route matches [GET] "/images/admin/a4.jpg"):
+  
+actionpack (5.0.7) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.7) lib/rails/engine.rb:522:in `call'
+puma (3.11.4) lib/puma/configuration.rb:225:in `call'
+puma (3.11.4) lib/puma/server.rb:632:in `handle_request'
+puma (3.11.4) lib/puma/server.rb:446:in `process_client'
+puma (3.11.4) lib/puma/server.rb:306:in `block in run'
+puma (3.11.4) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+ActionController::RoutingError (No route matches [GET] "/images/admin/a3.jpg"):
+  
+actionpack (5.0.7) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.7) lib/rails/engine.rb:522:in `call'
+puma (3.11.4) lib/puma/configuration.rb:225:in `call'
+puma (3.11.4) lib/puma/server.rb:632:in `handle_request'
+puma (3.11.4) lib/puma/server.rb:446:in `process_client'
+puma (3.11.4) lib/puma/server.rb:306:in `block in run'
+puma (3.11.4) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  
+ActionController::RoutingError (No route matches [GET] "/images/admin/a8.jpg"):
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (5.3ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (305.3ms)
+actionpack (5.0.7) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.7) lib/rails/engine.rb:522:in `call'
+puma (3.11.4) lib/puma/configuration.rb:225:in `call'
+puma (3.11.4) lib/puma/server.rb:632:in `handle_request'
+puma (3.11.4) lib/puma/server.rb:446:in `process_client'
+puma (3.11.4) lib/puma/server.rb:306:in `block in run'
+puma (3.11.4) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+DEPRECATION WARNING: Accessing mime types via constants is deprecated. Please change `Mime::HTML` to `Mime[:html]`. (called from acceptable_content_type? at /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/middleware.rb:58)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.7ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.5ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.3ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered collection of /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_route.html.erb [226 times] (202.8ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered collection of /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_route.html.erb [226 times] (235.5ms)
+  Rendered collection of /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_route.html.erb [226 times] (130.9ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.9ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_table.html.erb (2.1ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.9ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_table.html.erb (2.0ms)
+  Rendered collection of /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_route.html.erb [226 times] (133.0ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_table.html.erb (2.2ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (697.8ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.9ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (1428.5ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.0ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.7ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (4.6ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (1488.6ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.0ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.6ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (1464.1ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (1353.4ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.8ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (1518.4ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.7ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.8ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.6ms)
+  
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.5ms)
+Started GET "/assets/admin/patterns/header-profile.png" for ::1 at 2018-04-17 20:19:06 +0530
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript
+ActionController::RoutingError (No route matches [GET] "/images/admin/a7.jpg"):
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string
+  
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.5ms)
+actionpack (5.0.7) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.4) lib/rack/method_override.rb:22:in `call'
+rack (2.0.4) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.7) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.7) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.4) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.7) lib/rails/engine.rb:522:in `call'
+puma (3.11.4) lib/puma/configuration.rb:225:in `call'
+puma (3.11.4) lib/puma/server.rb:632:in `handle_request'
+puma (3.11.4) lib/puma/server.rb:446:in `process_client'
+puma (3.11.4) lib/puma/server.rb:306:in `block in run'
+puma (3.11.4) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.5ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (127.0ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.7ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (120.4ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (112.6ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.5ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.7ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.6ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (134.9ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.8ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (251.8ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (227.0ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.0ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+Started GET "/assets/fonts/glyphicons-halflings-regular.woff2" for ::1 at 2018-04-17 20:19:06 +0530
+Started GET "/assets/admin/font-awesome/fonts/fontawesome-webfont.woff2?v=4.3.0" for ::1 at 2018-04-17 20:19:06 +0530
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (301.6ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.8ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (441.3ms)
+  Rendered collection of /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_route.html.erb [226 times] (80.9ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/routes/_table.html.erb (2.1ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.9ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/actionpack-5.0.7/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (272.6ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (1.1ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.7ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (36.5ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.6ms)
+  Rendering /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.8ms)
+  Rendered /usr/local/lib/ruby/gems/2.4.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (68.0ms)
+Started GET "/signup" for 127.0.0.1 at 2018-04-17 20:23:52 +0530
+Processing by RegisterController#new as HTML
+  Rendering register/new.html.erb within layouts/application
+  Rendered register/new.html.erb within layouts/application (7.2ms)
+  [1m[36mMstSetting Load (0.5ms)[0m  [1m[34mSELECT `mst_settings`.* FROM `mst_settings` ORDER BY `mst_settings`.`id` ASC[0m
+  Rendered front/includes/_header.html.erb (1.3ms)
+  Rendered front/includes/_footer.html.erb (0.8ms)
+Completed 200 OK in 123ms (Views: 120.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/front/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/toastr.min.self-ec1461441393218b0b5f51a57b59fbeb93a777bb2e2f87ce0e827c08cc4bf146.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/toastr.min.self-06143bff7e781943320c874b864169b091cbbe81e34a0af34a02df933cfafe61.js?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/bootstrap-theme.min.self-9d66c8257854598a8bb867788558ea1daa20065a3fe9a827b5ed3fea25b98ba3.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/bootstrap-progressbar-3.3.2.min.self-5a0f94e2ec3d9c9f67e3f0152e287c836be8147e5aa4669e005c2a05b6a6c258.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/animate.self-e01903b2f142a67c94c2bb2412884e9f63f64ad0e24582d86a956fb76f6c2807.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/custom-dropdown.self-a2de223218bdd35a56b94c94b627078cc220f75c4aaddf3892a3b14aa47ecccc.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/bootstrap-toggle.min.self-5b94fd5758b15460be4f85b34be7d22cce8b905e7f820328b86c05dfa3201e0b.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/bootstrap.min.self-a25e528dfbb86d0b84cebc5e9b0944c5be542d72fadbc3fde89316966cd8b2d1.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/jquery.validate.password.self-efc754b89fd07ace8ce22051e610795c4c6a1b68436d505fad2ebe3b303bd23f.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/font-awesome.min.self-917fa8ed7dcaaa86f35ddbdf989891536ca639986ba59fd89d974c4aaa39442b.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/font/opensans/stylesheet.self-32ea0790793b037dea49a9acd9be0729fb1b807d7cbb5b70751ee2e2a07929bc.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/jquery-ui.self-95e78543e88be7444adc199e325a881b1ee4df779551d4a5c2ce0f3dd7c10124.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/lightslider.self-af99b2ed11039a40c9b5dbbbb31c7cf3221563c5ca4eedbcb5811df2e4b150b5.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/main.self-ce5373e46ad29c196402f9f5ef4d1f9c0e54d6e5d9d405d11ec16de5a85d6a33.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/style.self-2a90cb969377719cf183bbe56e50895a9359d283bce90823f9e03148836b3287.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/responsive.self-8b50ac8cabb7e90fc7aedbe3aeffa47b50431467537e79fe1133c950cf70d49c.css?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/admin/jquery.validate-1.14.0.self-035f54c81316931ebf611ffc3306fc07c71db1d641875c1f28bc1f1fd99b1d82.js?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/assets/front/jquery.min.self-875821d1e3121b366b94ea86a07f3cbc5c76cb16a319bc62212c03a805ff20e9.js?body=1" for 127.0.0.1 at 2018-04-17 20:23:53 +0530
+Started GET "/submit" for 127.0.0.1 at 2018-04-17 20:24:01 +0530
+Processing by NewsController#new as HTML
+  Rendering news/new.html.erb within layouts/application
+  Rendered news/new.html.erb within layouts/application (0.5ms)
+  [1m[36mMstSetting Load (0.7ms)[0m  [1m[34mSELECT `mst_settings`.* FROM `mst_settings` ORDER BY `mst_settings`.`id` ASC[0m
+  Rendered front/includes/_header.html.erb (0.7ms)
+  Rendered front/includes/_footer.html.erb (0.4ms)
+Completed 200 OK in 33ms (Views: 31.0ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/front/animate.self-e01903b2f142a67c94c2bb2412884e9f63f64ad0e24582d86a956fb76f6c2807.css?body=1" for 127.0.0.1 at 2018-04-17 20:24:01 +0530
+DEPRECATION WARNING: ActiveRecord::Base.raise_in_transactional_callbacks= is deprecated, has no effect and will be removed without replacement. (called from require at bin/rails:4)
+DEPRECATION WARNING: ActiveRecord::Base.raise_in_transactional_callbacks= is deprecated, has no effect and will be removed without replacement. (called from load at /usr/local/bin/rake:23)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT DATABASE() as db[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT GET_LOCK('3146158482015461535', 0);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (12.9ms)[0m  [1m[34mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateMstNews (20180417145551)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('3146158482015461535')[0m
+DEPRECATION WARNING: ActiveRecord::Base.raise_in_transactional_callbacks= is deprecated, has no effect and will be removed without replacement. (called from load at /usr/local/bin/rake:23)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT DATABASE() as db[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT GET_LOCK('3146158482015461535', 0);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateMstNews (20180417145551)
+  [1m[35m (462.0ms)[0m  [1m[35mCREATE TABLE `mst_news` (`id` int AUTO_INCREMENT PRIMARY KEY, `user_id` int, `title` varchar(255), `slug` varchar(255), `description` longtext, `active` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20180417145551')[0m
+  [1m[35m (38.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('3146158482015461535')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_blog_categories`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_blog_categories'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_categories`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_categories'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_contactus`[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_contactus'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_content_pages`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_content_pages'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_email_templates`[0m
+  [1m[35m (0.5ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_email_templates'[0m
+  [1m[35m (0.7ms)[0m  [1m[35mSHOW CREATE TABLE `mst_faqs`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_faqs'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_how_it_works`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_how_it_works'[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSHOW CREATE TABLE `mst_newletters`[0m
+  [1m[35m (1.8ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_newletters'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_news`[0m
+  [1m[35m (6.6ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_news'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_permissions`[0m
+  [1m[35m (1.1ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_permissions'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_roles`[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_roles'[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSHOW CREATE TABLE `mst_settings`[0m
+  [1m[35m (0.5ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_settings'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_users`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_users'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_blog_comments`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_blog_comments'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_blog_posts`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_blog_posts'[0m
+  [1m[35m (1.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_categories`[0m
+  [1m[35m (0.8ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_categories'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_newsletter_sends`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_newsletter_sends'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_newsletter_subscriptions`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_newsletter_subscriptions'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_permission_roles`[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_permission_users`[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_role_users`[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_user_informations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_user_informations'[0m
+Started GET "/submit" for 127.0.0.1 at 2018-04-17 20:34:48 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Processing by NewsController#new as HTML
+  Rendering news/new.html.erb within layouts/application
+  Rendered news/new.html.erb within layouts/application (4.0ms)
+  [1m[36mMstSetting Load (0.4ms)[0m  [1m[34mSELECT `mst_settings`.* FROM `mst_settings` ORDER BY `mst_settings`.`id` ASC[0m
+  Rendered front/includes/_header.html.erb (1.0ms)
+  Rendered front/includes/_footer.html.erb (0.4ms)
+Completed 200 OK in 56ms (Views: 53.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/front/main.self-ce5373e46ad29c196402f9f5ef4d1f9c0e54d6e5d9d405d11ec16de5a85d6a33.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:48 +0530
+Started GET "/assets/front/responsive.self-8b50ac8cabb7e90fc7aedbe3aeffa47b50431467537e79fe1133c950cf70d49c.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:48 +0530
+Started GET "/assets/front/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:48 +0530
+Started GET "/assets/toastr.min.self-06143bff7e781943320c874b864169b091cbbe81e34a0af34a02df933cfafe61.js?body=1" for 127.0.0.1 at 2018-04-17 20:34:48 +0530
+Started GET "/assets/front/jquery.min.self-875821d1e3121b366b94ea86a07f3cbc5c76cb16a319bc62212c03a805ff20e9.js?body=1" for 127.0.0.1 at 2018-04-17 20:34:48 +0530
+Started GET "/assets/front/style.self-2a90cb969377719cf183bbe56e50895a9359d283bce90823f9e03148836b3287.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:48 +0530
+Started GET "/assets/toastr.min.self-ec1461441393218b0b5f51a57b59fbeb93a777bb2e2f87ce0e827c08cc4bf146.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:48 +0530
+Started GET "/assets/front/animate.self-e01903b2f142a67c94c2bb2412884e9f63f64ad0e24582d86a956fb76f6c2807.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/front/bootstrap-progressbar-3.3.2.min.self-5a0f94e2ec3d9c9f67e3f0152e287c836be8147e5aa4669e005c2a05b6a6c258.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/front/bootstrap.min.self-a25e528dfbb86d0b84cebc5e9b0944c5be542d72fadbc3fde89316966cd8b2d1.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/front/bootstrap-theme.min.self-9d66c8257854598a8bb867788558ea1daa20065a3fe9a827b5ed3fea25b98ba3.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/front/custom-dropdown.self-a2de223218bdd35a56b94c94b627078cc220f75c4aaddf3892a3b14aa47ecccc.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/front/bootstrap-toggle.min.self-5b94fd5758b15460be4f85b34be7d22cce8b905e7f820328b86c05dfa3201e0b.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/front/font-awesome.min.self-917fa8ed7dcaaa86f35ddbdf989891536ca639986ba59fd89d974c4aaa39442b.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/front/font/opensans/stylesheet.self-32ea0790793b037dea49a9acd9be0729fb1b807d7cbb5b70751ee2e2a07929bc.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/front/jquery-ui.self-95e78543e88be7444adc199e325a881b1ee4df779551d4a5c2ce0f3dd7c10124.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/front/jquery.validate.password.self-efc754b89fd07ace8ce22051e610795c4c6a1b68436d505fad2ebe3b303bd23f.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/front/lightslider.self-af99b2ed11039a40c9b5dbbbb31c7cf3221563c5ca4eedbcb5811df2e4b150b5.css?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+Started GET "/assets/admin/jquery.validate-1.14.0.self-035f54c81316931ebf611ffc3306fc07c71db1d641875c1f28bc1f1fd99b1d82.js?body=1" for 127.0.0.1 at 2018-04-17 20:34:49 +0530
+DEPRECATION WARNING: ActiveRecord::Base.raise_in_transactional_callbacks= is deprecated, has no effect and will be removed without replacement. (called from load at /usr/local/bin/rake:23)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT DATABASE() as db[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT GET_LOCK('3146158482015461535', 0);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('3146158482015461535')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_blog_categories`[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_blog_categories'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_categories`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_categories'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_contactus`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_contactus'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_content_pages`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_content_pages'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_email_templates`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_email_templates'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_faqs`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_faqs'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_how_it_works`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_how_it_works'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_newletters`[0m
+  [1m[35m (0.5ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_newletters'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_news`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_news'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_permissions`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_permissions'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_roles`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_roles'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_settings`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_settings'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `mst_users`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'mst_users'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_blog_comments`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_blog_comments'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_blog_posts`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_blog_posts'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_categories`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_categories'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_newsletter_sends`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_newsletter_sends'[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSHOW CREATE TABLE `trans_newsletter_subscriptions`[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_newsletter_subscriptions'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_permission_roles`[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_permission_users`[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_role_users`[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSHOW CREATE TABLE `trans_user_informations`[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSHOW TABLE STATUS LIKE 'trans_user_informations'[0m
+Started GET "/submit" for 127.0.0.1 at 2018-04-17 20:50:28 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Processing by NewsController#new as HTML
+  Rendering news/new.html.erb within layouts/application
+  Rendered news/new.html.erb within layouts/application (604.6ms)
+  [1m[36mMstSetting Load (0.5ms)[0m  [1m[34mSELECT `mst_settings`.* FROM `mst_settings` ORDER BY `mst_settings`.`id` ASC[0m
+  Rendered front/includes/_header.html.erb (2.4ms)
+  Rendered front/includes/_footer.html.erb (0.7ms)
+Completed 200 OK in 1145ms (Views: 1141.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/front/bootstrap-progressbar-3.3.2.min.self-5a0f94e2ec3d9c9f67e3f0152e287c836be8147e5aa4669e005c2a05b6a6c258.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:29 +0530
+Started GET "/assets/front/animate.self-e01903b2f142a67c94c2bb2412884e9f63f64ad0e24582d86a956fb76f6c2807.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:29 +0530
+Started GET "/assets/front/bootstrap-theme.min.self-9d66c8257854598a8bb867788558ea1daa20065a3fe9a827b5ed3fea25b98ba3.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:29 +0530
+Started GET "/assets/front/custom-dropdown.self-a2de223218bdd35a56b94c94b627078cc220f75c4aaddf3892a3b14aa47ecccc.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:29 +0530
+Started GET "/assets/front/bootstrap.min.self-a25e528dfbb86d0b84cebc5e9b0944c5be542d72fadbc3fde89316966cd8b2d1.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:29 +0530
+Started GET "/assets/front/bootstrap-toggle.min.self-5b94fd5758b15460be4f85b34be7d22cce8b905e7f820328b86c05dfa3201e0b.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:29 +0530
+Started GET "/assets/front/font-awesome.min.self-917fa8ed7dcaaa86f35ddbdf989891536ca639986ba59fd89d974c4aaa39442b.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:29 +0530
+Started GET "/assets/front/font/opensans/stylesheet.self-32ea0790793b037dea49a9acd9be0729fb1b807d7cbb5b70751ee2e2a07929bc.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:29 +0530
+Started GET "/assets/front/jquery-ui.self-95e78543e88be7444adc199e325a881b1ee4df779551d4a5c2ce0f3dd7c10124.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:29 +0530
+Started GET "/assets/front/jquery.validate.password.self-efc754b89fd07ace8ce22051e610795c4c6a1b68436d505fad2ebe3b303bd23f.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:30 +0530
+Started GET "/assets/front/lightslider.self-af99b2ed11039a40c9b5dbbbb31c7cf3221563c5ca4eedbcb5811df2e4b150b5.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:30 +0530
+Started GET "/assets/front/main.self-ce5373e46ad29c196402f9f5ef4d1f9c0e54d6e5d9d405d11ec16de5a85d6a33.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:30 +0530
+Started GET "/assets/front/style.self-2a90cb969377719cf183bbe56e50895a9359d283bce90823f9e03148836b3287.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:30 +0530
+Started GET "/assets/front/responsive.self-8b50ac8cabb7e90fc7aedbe3aeffa47b50431467537e79fe1133c950cf70d49c.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:30 +0530
+Started GET "/assets/front/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:30 +0530
+Started GET "/assets/front/jquery.min.self-875821d1e3121b366b94ea86a07f3cbc5c76cb16a319bc62212c03a805ff20e9.js?body=1" for 127.0.0.1 at 2018-04-17 20:50:30 +0530
+Started GET "/assets/admin/jquery.validate-1.14.0.self-035f54c81316931ebf611ffc3306fc07c71db1d641875c1f28bc1f1fd99b1d82.js?body=1" for 127.0.0.1 at 2018-04-17 20:50:30 +0530
+Started GET "/assets/toastr.min.self-06143bff7e781943320c874b864169b091cbbe81e34a0af34a02df933cfafe61.js?body=1" for 127.0.0.1 at 2018-04-17 20:50:30 +0530
+Started GET "/assets/toastr.min.self-ec1461441393218b0b5f51a57b59fbeb93a777bb2e2f87ce0e827c08cc4bf146.css?body=1" for 127.0.0.1 at 2018-04-17 20:50:30 +0530
+Started GET "/submit" for 127.0.0.1 at 2018-04-17 20:51:46 +0530
+Processing by NewsController#new as HTML
+  Rendering news/new.html.erb within layouts/application
+  Rendered news/new.html.erb within layouts/application (8.5ms)
+  [1m[36mMstSetting Load (0.8ms)[0m  [1m[34mSELECT `mst_settings`.* FROM `mst_settings` ORDER BY `mst_settings`.`id` ASC[0m
+  Rendered front/includes/_header.html.erb (1.0ms)
+  Rendered front/includes/_footer.html.erb (0.5ms)
+Completed 200 OK in 66ms (Views: 62.3ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/assets/front/animate.self-e01903b2f142a67c94c2bb2412884e9f63f64ad0e24582d86a956fb76f6c2807.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:46 +0530
+Started GET "/assets/front/bootstrap-progressbar-3.3.2.min.self-5a0f94e2ec3d9c9f67e3f0152e287c836be8147e5aa4669e005c2a05b6a6c258.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/custom-dropdown.self-a2de223218bdd35a56b94c94b627078cc220f75c4aaddf3892a3b14aa47ecccc.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/font-awesome.min.self-917fa8ed7dcaaa86f35ddbdf989891536ca639986ba59fd89d974c4aaa39442b.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/bootstrap.min.self-a25e528dfbb86d0b84cebc5e9b0944c5be542d72fadbc3fde89316966cd8b2d1.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/font/opensans/stylesheet.self-32ea0790793b037dea49a9acd9be0729fb1b807d7cbb5b70751ee2e2a07929bc.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/bootstrap-toggle.min.self-5b94fd5758b15460be4f85b34be7d22cce8b905e7f820328b86c05dfa3201e0b.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/bootstrap-theme.min.self-9d66c8257854598a8bb867788558ea1daa20065a3fe9a827b5ed3fea25b98ba3.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/jquery-ui.self-95e78543e88be7444adc199e325a881b1ee4df779551d4a5c2ce0f3dd7c10124.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/jquery.validate.password.self-efc754b89fd07ace8ce22051e610795c4c6a1b68436d505fad2ebe3b303bd23f.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/lightslider.self-af99b2ed11039a40c9b5dbbbb31c7cf3221563c5ca4eedbcb5811df2e4b150b5.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/responsive.self-8b50ac8cabb7e90fc7aedbe3aeffa47b50431467537e79fe1133c950cf70d49c.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/style.self-2a90cb969377719cf183bbe56e50895a9359d283bce90823f9e03148836b3287.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/main.self-ce5373e46ad29c196402f9f5ef4d1f9c0e54d6e5d9d405d11ec16de5a85d6a33.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/admin/jquery.validate-1.14.0.self-035f54c81316931ebf611ffc3306fc07c71db1d641875c1f28bc1f1fd99b1d82.js?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/toastr.min.self-ec1461441393218b0b5f51a57b59fbeb93a777bb2e2f87ce0e827c08cc4bf146.css?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/toastr.min.self-06143bff7e781943320c874b864169b091cbbe81e34a0af34a02df933cfafe61.js?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530
+Started GET "/assets/front/jquery.min.self-875821d1e3121b366b94ea86a07f3cbc5c76cb16a319bc62212c03a805ff20e9.js?body=1" for 127.0.0.1 at 2018-04-17 20:51:47 +0530

@@ -1,0 +1,139 @@
+<% provide(:title,@page_title) %>
+<div style="background-image:url(../assets/front/img/slider.jpg);" class="contact-banner">
+    <div class="container">
+        <div class="contact-main-ttl-sec">
+            <div class="ttl-contact">
+                <%= t("blog") %>
+            </div>
+            <ul class="breadcrumba">
+                <li><a href="<%= root_url %>"><%= t("home") %></a></li>
+                <li class="active"><%= t("blog") %></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<section class="middlesec inner-pages">
+	<div class="basic-comparison-section">
+    	<div class="container">
+                <div class="blog-inner-sec">
+                    <div class="row">
+                        
+                    	<div class="col-md-9 col-sm-9 col-xs-12">
+                        	<div class="blog-row-left-list">
+                                <% if @arr_posts.blank? == false %>
+                                <% @arr_posts.each do |post| %>
+                                <div class="blog-left-sec">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 width-h">
+                                            <div class="blog-list-left-img-sec relative">
+                                                <%#= image_tag("/blog_images/"+(post.blog_image), :alt => "image") %>
+                                                <% if post.blog_image.blank? == false %>
+                                                <%= image_tag("/blog_images/"+(post.blog_image), :alt => "image") %>
+                                                <% else %>
+                                                <%= image_tag("front/img/blog-default.png", :alt => "image") %>
+                                                <% end %>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 width-h">
+                                            <div class="blog-right-con relative">
+                                                <div class="ttl-blog">
+                                                    <a href="<%= blog_details_url(:seo_url => post.seo_url) %>"><%= post.post_title %></a>
+                                                </div>
+												<ul class="admin-sec">
+                                                    <li><span class="i-social-4"></span> <%= t("admin") %></li>
+                                                    <li><span class="i-square"></span><%= post.created_at.strftime('%d.%m.%Y %T') %> </li>
+                                                </ul>
+                                                <div class="blog-desc">
+                                                      <p><%= truncate(post.post_short_description, :length => 150) %></p>
+                                                </div>
+                                                <div class="read-more">
+                                                    <a href="<%= blog_details_url(:seo_url => post.seo_url) %>"><%= t("read_more") %><span class="i-arrows-6"> </span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <% end %>
+                                 <% else %>
+                            <h3><%= t("sorry_blog_post_not_found") %></h3>
+                        <% end %>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                        	<div class="right-bar-sec">
+                            	<div class="search-sec">
+                                	<!-- <form>
+                                    	<div class="input-group">
+                                        	<input type="text" class="form-control" placeholder="search">
+                                            <span class="input-group-btn">
+                                            	<button type="button" class="btn btn-orange"><i class="fa fa-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </form> -->
+                                    <%= form_for(:blog_search, url: blog_search_url,:html =>{:name =>'frm_blog_search',:id =>'frm_blog_search' , :method=>"GET"}) do |f| %>
+                                        <div class="input-group">
+                                            <%= f.text_field :title, id: 'title', class: 'form-control', :value=>'', placeholder: t('search_plc') %>
+                                            <span class='input-group-btn'>
+                                            <button type="submit" class="btn btn-orange"><span class="i-search"></span></button>
+                                            </span>
+                                        </div>
+                                    <% end %>
+                                </div>
+                                <div class="recent-updates-sec">
+                                	<div class="category-ttl">
+                                    	<%= t("recent_updates") %>
+                                    </div>
+                                    <% if @recent_post.blank? == false %>
+                                    <div class="cate-list">
+                                    	<ul>
+                                    		<% @recent_post.each do |p| %>
+                                              <li>
+                                                  <div class="media">
+                                                      <!-- <a href="#" class="pull-left rec-up-img"> -->
+                                                      <div class="media-body">
+                                                          <a href="<%= blog_details_url(:seo_url => p.seo_url) %>"><%= p.post_title %></a>
+                                                          <div class="date-up">
+                                                              <%= p.created_at.strftime('%d-%m-%Y') %>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </li>
+                                            <% end %> 
+                                        </ul>
+                                    </div>
+                                    <% else %>
+                                    <center><%= t("recent_posts_not_found") %></center>
+                                    <% end %>
+                                </div>
+                                <!-- <div class="category-sec">
+                                	<div class="category-ttl">
+                                    	Categories
+                                    </div>
+                                    <div class="cate-list">
+                                    	<ul>
+                                        	<li>
+                                            	<a href="#">Adventure<span class="pull-right">(10)</span></a>
+                                            </li><li>
+                                            	<a href="#">Technology<span class="pull-right">(10)</span></a>
+                                            </li>
+                                            <li>
+                                            	<a href="#">Design<span class="pull-right">(10)</span></a>
+                                            </li>
+                                            <li>
+                                            	<a href="#">Culture<span class="pull-right">(10)</span></a>
+                                            </li>
+                                            <li>
+                                            	<a href="#">Expert Advice<span class="pull-right">(10)</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,117 @@
+<% provide(:title, "Global Setting") %>
+<div id="page-wrapper" class="gray-bg">
+	<%= render "admin/includes/header" %>
+	<div class="row wrapper border-bottom white-bg page-heading">
+		<div class="col-lg-10">
+			<h2></h2>
+			<ol class="breadcrumb">
+				<li>
+					<a href="<%= admin_dashboard_url %>">Dashboard</a>
+				</li>
+				<li class="active">
+					<strong>Manage Global Setting</strong>
+				</li>
+			</ol>
+		</div>
+		<div class="col-lg-2">
+		</div>
+	</div>
+	<%= stylesheet_link_tag 'admin/plugins/dataTables/datatables.min.css' %>
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>Manage Global Setting</h5>
+						<div class="ibox-tools">
+							<!-- <a class="collapse-link">
+								<i class="fa fa-chevron-up"></i>
+							</a>
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="fa fa-wrench"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-user">
+								<li><a href="#">Config option 1</a>
+								</li>
+								<li><a href="#">Config option 2</a>
+								</li>
+							</ul>
+							<a class="close-link">
+								<i class="fa fa-times"></i>
+							</a> -->
+							</div>
+					</div>
+					<div class="ibox-content">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover dataTables-example" >
+								<thead>
+									<tr>
+										<!-- <th>No.</th> -->
+										<th>Parameter Name</th>
+										<th>Parameter Value</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<% t = Time.now %>
+								<tbody role="alert" aria-live="polite" aria-relevant="all">
+									<%# @i = 1 %>
+									<% @global_settings.each do |g| %>
+									<tr>
+										<!-- <td width="10%"># <%#= @i %></td> -->
+										<td ><%= g.name %></td>
+										<% if g.key == 'date-format' %>
+										<td ><%= t.strftime(g.value) %></td>
+										<%  else %>
+										<td ><%= g.value %></td>
+										<%  end %>
+										<td class="">
+											<%= link_to admin_global_setting_edit_url(:global_id => Base64.encode64(g.id.to_s)), :class => "btn btn-success btn-xs", :title => "Edit Global Settings Parameter" do %>
+											<i class="fa fa-edit"></i>Edit
+											<% end %>
+										</td>
+									</tr>
+									<%# @i = @i + 1 %>
+									<% end %>
+								</tbody>
+								<!-- <tfoot>
+									<tr>
+										<th>No.</th>
+										<th>Parameter Name</th>
+										<th>Parameter Value</th>
+										<th>Action</th>
+									</tr>
+								</tfoot> -->
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/plugins/dataTables/datatables.min.js' %>
+<script>
+	$(document).ready(function(){
+		$('.dataTables-example').DataTable({
+			/*dom: '<"html5buttons"B>lTfgitp',
+			buttons: [
+			{ extend: 'copy'},
+			{extend: 'csv'},
+			{extend: 'excel', title: 'ExampleFile'},
+			{extend: 'pdf', title: 'ExampleFile'},
+			{extend: 'print',
+			customize: function (win){
+				$(win.document.body).addClass('white-bg');
+				$(win.document.body).css('font-size', '10px');
+
+				$(win.document.body).find('table')
+				.addClass('compact')
+				.css('font-size', 'inherit');
+			}
+		}
+		]*/
+	});
+	});
+</script>

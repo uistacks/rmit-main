@@ -1,0 +1,137 @@
+<% provide(:title,@page_title) %>
+
+<div style="background-image:url(assets/front/img/slider.jpg);" class="contact-banner">
+	<div class="container">
+		<div class="contact-main-ttl-sec">
+			<div class="ttl-contact">
+				<%= t("contact_us") %>
+			</div>
+			<ul class="breadcrumba">
+				<li><a href="<%= root_url %>"><%= t("home") %></a></li>
+				<li class="active"><%= t("contact_us") %></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<section class="middlesec inner-pages padd-z">
+	<div class="basic-comparison-section">
+		<div class="contact-inner-sec">
+			<div class="contact-inner-sec">
+				<% 
+				getGlobalData
+				@address = @globals[4].value
+				@contact_no = @globals[6].value	
+				@zipcode = @globals[5].value
+				 %>
+				 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvLvCOmLgGiBe0pTnItF352pmOZ1RzX_s&libraries=places"></script>
+				<script type="text/javascript">
+				  
+				  var geocoder = new google.maps.Geocoder();
+				  geocoder.geocode({ 'address': '<%= @address %>' }, function (results, status) {
+				   // console.log(results)
+				    if (status == google.maps.GeocoderStatus.OK) {
+				      var mapOptions = { zoom: 17, mapTypeId: google.maps.MapTypeId.ROADMAP };
+				      var map = new google.maps.Map(document.getElementById('addressMap'), mapOptions);
+				      map.setCenter(results[0].geometry.location);
+				      map.fitBounds(results[0].geometry.viewport);
+				    } else {
+				      alert("Geocode was not successful for the following reason: " + status);
+				    }
+				  });
+				</script>
+				<ul class="add-list clearfix">
+					<li><i class="fa fa-map-marker"></i> <%= @address+", "+@zipcode %></li>
+					<li><i class="fa fa-envelope-o"></i> <%= @site_email %></li>
+					<li><i class="fa fa-mobile"></i> <%= @contact_no %></li>
+				</ul>
+
+			</div>
+			<div class="contact-map-form-sec relative">
+				<div class="map-bg" id="addressMap" style="width:100%;height:576px;">
+					<!-- <img src="img/map.png"> -->
+					 <%#= image_tag("https://maps.googleapis.com/maps/api/staticmap?center="+@address+"&key=AIzaSyBvLvCOmLgGiBe0pTnItF352pmOZ1RzX_s", :alt => "image") %>
+				</div>
+				<div class="contact-form-sec">
+					<div class="ttl-get">
+						<%= t("get") %> <span class="org-text"><%= t("in_touch") %></span>
+					</div>
+					
+					<div class="sm-tttl">
+						<%= t("feel_free_to_contact_with_us") %>
+					</div>
+					<%= form_for(:contactus, url: create_contactus_url ,:html=>{:class=>"form-horizontal",:name=>'frm_create_contactus',:id=>'frm_create_contactus'}) do |f| %>
+						<div class="form-group offset-bottom-35">
+							<%= f.text_field :full_name, class: 'form-control', :value => '', id: 'full_name', placeholder: t("your_name_plc") %>
+						</div>
+					
+						<div class="form-group offset-bottom-35">
+							<%= f.text_field :email_address, class: 'form-control', :value => (session[:user_email].nil?) ? session[:user_email] : "" , id: 'email_address', placeholder: t("email_plc") %>
+						</div>
+						<div class="form-group offset-bottom-35">
+							<%= f.text_field :subject, class: 'form-control', :value => '', id: 'subject', placeholder: t("subject") %>
+						</div>
+						<div class="form-group offset-bottom-35">
+							<%= f.text_area :message, class: 'form-control', :value => '', id: 'message', placeholder: t("message"), row: "2" %>
+						</div>
+						<div class="btn-send">
+							<button type="submit" id="btnSubmit" class="btn btn-orange" value="" name="commit"><span class="btn-text"><%= t("send_now")%></span>
+							<span class="btn-icon"><i class="fa fa-send"></i></span>
+							</button>
+							<%#= f.submit "",class: "btn btn-orange", id:"btnSubmit" %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+	$(document).ready(function(){
+    $("#frm_create_contactus").validate({
+      onkeyup: false,
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'contactus[full_name]': {
+          required : true
+        },
+        'contactus[email_address]': {
+          required : true,
+          email: true
+        },
+        "contactus[subject]":{
+          required:true
+        },
+        "contactus[message]":{
+          required:true,
+          minlength: 15
+        }
+      },
+      messages: {
+        'contactus[full_name]': {
+          required: "<%= t("full_name_req_val")%>"
+        },
+        'contactus[email_address]': {
+          required: "<%= t("user_email_req_val")%>",
+          email: "<%= t("user_email_email_val")%>"
+
+        },
+        "contactus[subject]":{
+          required:"<%= t("subject_req_val")%>"
+        },
+        "contactus[message]":{
+          required:"<%= t("message_req_val")%>",
+          minlength:"<%= t("message_min_val")%>"
+        }
+      },
+      submitHandler: function(form) {
+        // do other things for a valid form
+		$('#btnSubmit').attr("disabled","disabled");
+		$('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+			form.submit();
+			return true;
+      	}
+    });
+	});
+</script>

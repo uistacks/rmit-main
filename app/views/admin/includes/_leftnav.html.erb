@@ -1,0 +1,144 @@
+<style type="text/css">
+    .admin-photo img {
+      height: 50px;
+      width: 50px;
+    }
+</style>
+<nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                    <span class="admin-photo">
+                        <% if @user_account.trans_user_informations.profile_picture.nil? or @user_account.trans_user_informations.profile_picture == "No" %>
+                        <%= image_tag("admin/user.png", :alt => "image", :class=>"img-circle img-responsive") %>
+                        <% elsif @user_account.trans_user_informations.profile_picture == "GA" %>
+                        <%= image_tag("admin/gravatar.jpg", :alt => "image", :class=>"img-circle img-responsive") %>
+                        <% else %>
+                        <img class="img-circle img-responsive" src="/user/profile/<%= @user_account.trans_user_informations.profile_picture %>" onerror="this.src='/assets/img/user.png'" />
+                        <% end %>
+                    </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><%= @user_account.trans_user_informations.first_name.to_s + ' ' + @user_account.trans_user_informations.last_name.to_s %></strong>
+                             </span> <span class="text-muted text-xs block"><% if @role_name == "SuperAdmin" %>Administrator<% else %><%= @role_name %><% end %> <b class="caret"></b></span> </span>
+                           </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="<%= admin_show_url(:user_id=> Base64.encode64(@user_account.id.to_s)) %>">Profile</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<%= admin_logout_url %>">Logout</a></li>
+                        </ul>
+                    </div>
+                    <!-- <div class="logo-element">
+                        RK+
+                    </div> -->
+                </li>
+                <li <% if segment(2).to_s == "index" %> class="active" <% end %> >
+                    <a href="<%= admin_dashboard_url %>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+                </li>
+              <!--Assign permission to SuperAdmin start here-->
+               <% if @user_account.role.to_s == "1" then %>
+                <li <% if segment(2).to_s == "setting" %> class="active" <% end %> >
+                    <a href="<%= admin_global_setting_list_url %>"><i class="fa fa-cog"></i> <span class="nav-label">Manage Global Setting</span></a>
+                </li>
+                <li <% if segment(2).to_s == "admin-list" %> class="active" <% end %> >
+                    <a href="<%= admin_list_url %>"><i class="fa fa-users"></i> <span class="nav-label">Manage Admin</span></a>
+                </li>
+                <li <% if segment(2).to_s == "role" %> class="active" <% end %> >
+                    <a href="<%= admin_role_list_url %>"><i class="fa fa-cog"></i> <span class="nav-label">Manage Roles</span></a>
+                </li>
+                <!-- <li <% if segment(2).to_s == "permission" %> class="active" <% end %> >
+                    <a href="<%= admin_permission_list_url %>"><i class="fa fa-cog"></i> <span class="nav-label">Manage Permissions</span></a>
+                </li> -->
+                <li <% if segment(2).to_s == "user" %> class="active" <% end %> >
+                    <a href="<%= admin_user_list_url %>"><i class="fa fa-users"></i> <span class="nav-label">Manage Users</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                    <li <% if segment(2).to_s == "user" %> class="active" <% end %> >
+                      <a href="<%= admin_user_list_url(:type => "2") %>"><i class="fa fa-fw fa-list"></i>Customer</a>
+                     </li>
+                     <li <% if segment(2).to_s == "user" %> class="active" <% end %> >
+                      <a href="<%= admin_user_list_url(:type => "3") %>"><i class="fa fa-fw fa-list"></i>Promoter</a>
+                     </li>
+                    <!--<li <% if segment(2).to_s == "user" %> class="active" <% end %> >-->
+                      <!--<a href="<%= admin_user_list_url(:type => "4") %>"><i class="fa fa-fw fa-list"></i>Insurance Company</a>-->
+                     <!--</li>-->
+                  </ul>
+                </li>
+                <li <% if segment(2).to_s == "product" %> class="active" <% end %> >
+                  <a href="<%= admin_product_list_url %>"><i class="fa fa-th-large"></i> <span class="nav-label">Manage Insurance Company</span></a>
+                </li>
+                <li <% if segment(2).to_s == "content-page" %> class="active" <% end %> >
+                    <a href="<%= admin_content_page_list_url %>"><i class="fa fa-th-large"></i> <span class="nav-label">Manage CMS</span></a>
+                </li>
+                <li <% if segment(2).to_s == "email-template" %> class="active" <% end %> >
+                    <a href="<%= admin_email_template_list_url %>"><i class="fa fa-envelope"></i> <span class="nav-label">Manage Email Template</span></a>
+                </li>
+                <li <% if segment(2).to_s == "category" %> class="active" <% end %> >
+                    <a href="<%= admin_category_list_url %>"><i class="fa fa-tags"></i> <span class="nav-label">Manage Category</span></a>
+                </li>
+                <li <% if segment(2).to_s == "contactus" %> class="active" <% end %> >
+                    <a href="<%= admin_contactus_list_url %>"><i class="fa fa-phone"></i> <span class="nav-label">Manage Contact Us</span></a>
+                </li>
+
+                <!--Assign permission to SuperAdmin end here-->
+              <% else %>
+                  <!--Assign permission to OtherAdmin start here-->
+                <%
+                  # @arr_permissions = TransPermissionRole.select(:permission_id).where(:role_id => @user_account.role.to_i)
+                  #get permission data from admin/base_controller.rb file
+                  @arr_permissions.each do |pi|
+                %>
+                  <% case pi.permission_id %>
+                    <% when 1 %>
+                      <li <% if segment(2).to_s == "role" %> class="active" <% end %> >
+                          <a href="<%= admin_role_list_url %>"><i class="fa fa-cog"></i> <span class="nav-label">Manage Roles</span></a>
+                      </li>
+                    <% when 2 %>
+                      <li <% if segment(2).to_s == "user" %> class="active" <% end %> >
+	                    <a href="<%= admin_user_list_url %>"><i class="fa fa-users"></i> <span class="nav-label">Manage Users</span><span class="fa arrow"></span></a>
+	                    <ul class="nav nav-second-level">
+	                    <li <% if segment(2).to_s == "user" %> class="active" <% end %> >
+	                      <a href="<%= admin_user_list_url(:type => "2") %>"><i class="fa fa-fw fa-list"></i>Customer</a>
+	                     </li>
+	                     <li <% if segment(2).to_s == "user" %> class="active" <% end %> >
+	                      <a href="<%= admin_user_list_url(:type => "3") %>"><i class="fa fa-fw fa-list"></i>Promoter</a>
+	                     </li>
+	                    <li <% if segment(2).to_s == "user" %> class="active" <% end %> >
+	                      <a href="<%= admin_user_list_url(:type => "4") %>"><i class="fa fa-fw fa-list"></i>Insurance Company</a>
+	                     </li>
+	                  </ul>
+	                </li> 
+                    <% when 3 %>
+                      <li <% if segment(2).to_s == "content-page" %> class="active" <% end %> >
+                          <a href="<%= admin_content_page_list_url %>"><i class="fa fa-th-large"></i> <span class="nav-label">Manage CMS</span></a>
+                      </li>
+                    <% when 4 %>
+                      <li <% if segment(2).to_s == "email-template" %> class="active" <% end %> >
+                          <a href="<%= admin_email_template_list_url %>"><i class="fa fa-envelope"></i> <span class="nav-label">Manage Email Template</span></a>
+                      </li>
+                    <% when 5 %>
+                      <li <% if segment(2).to_s == "category" %> class="active" <% end %> >
+                           <a href="<%= admin_category_list_url %>"><i class="fa fa-tags"></i> <span class="nav-label">Manage Category</span></a>
+                      </li>
+                    <% when 6 %>
+                      <li <% if segment(2).to_s == "faq" %> class="active" <% end %> >
+                            <a href="<%= admin_faq_list_url %>"><i class="fa fa-fw fa-question"></i> <span class="nav-label">Manage FAQ's</span></a>
+                      </li>
+                    <% when 7 %>
+                    <% when 8 %>
+                     <% when 9 %>
+                    <% when 10 %>
+                    <% when 11 %>
+                    <% when 12 %>
+                    <% when 13 %>
+                    <% when 14 %>
+                      <% when 15 %>  
+                      <li <% if segment(2).to_s == "contactus" %> class="active" <% end %> >
+                          <a href="<%= admin_contactus_list_url %>"><i class="fa fa-phone"></i> <span class="nav-label">Manage Contact Us</span></a>
+                      </li>
+                    <% end %>
+                <% end %>
+                <!--Assign permission to OtherAdmin end here-->
+              <% end %>
+            </ul>
+        </div>
+    </nav>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MyAdmin | Login</title>
+	<%= stylesheet_link_tag    'admin/application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'admin/application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
+</head>
+<body class="gray-bg">
+	<div class="middle-box text-center loginscreen animated fadeInDown">
+		<div>
+			<div>
+				<h1 class="logo-name">Administration</h1>
+			</div>
+			<!-- <h3>Welcome to IN+</h3>
+			<p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+		</p> -->
+		<p>Login in. To see it in action.</p>
+		<%= form_for(:login, url: admin_attempt_login_url(),:html=>{:name=>'frm_user_login',:id=>'frm_user_login',:class=>"m-t",:autocomplete => "off"}) do |lf| %>
+		<div class="form-group">
+			<!-- <input type="email" class="form-control" placeholder="Username" required=""> -->
+			<%= lf.text_field :user_email, id: 'user_email', class: 'form-control', :value => cookies[:user_email], placeholder: "Email ID" %>
+		</div>
+		<div class="form-group">
+			<!-- <input type="password" class="form-control" placeholder="Password" required="">
+		-->
+		<%= lf.password_field :user_password, id: 'user_password', class: 'form-control', :value => cookies[:user_password], placeholder: "Password" %>
+	</div>
+	<%= button_tag "Login", data: { disable_with: "Processing.."}, class:'btn btn-primary block full-width m-b',name:'btn_login', id:'btn_login' %>
+	<a href="<%= admin_forgot_password_url %>"><small>Forgot password?</small></a>
+	<!-- <p class="text-muted text-center"><small>Do not have an account?</small></p>
+	<a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a> -->
+	<% end %>
+	<p class="m-t"> <small></small> </p>
+</div>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script type="text/javascript">
+$(document).ready(function(){
+	//admin login
+	$("#frm_user_login").validate({
+		onkeyup: false,
+		// onfocusout: false,
+		errorElement: "div",
+		errorClass: "text-danger",
+		rules: {
+			'login[user_email]': {
+				required : true,
+				email:true
+			},
+			'login[user_password]': {
+				required : true
+			}
+		},
+		messages: {
+			'login[user_email]': {
+				required: "Please enter your email ID.",
+				email:"Please enter a valid email ID."
+			},
+			'login[user_password]': {
+				required: "Please enter your password."
+			}
+		},
+		submitHandler: function(form) {
+			// do other things for a valid form
+			form.submit();
+			return true;
+		}
+	});
+});
+</script>
+</body>
+</html>

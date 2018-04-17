@@ -1,0 +1,42 @@
+<% provide(:title, @page_title) %>
+<div id="page-wrapper" class="gray-bg">
+	<%= render "admin/includes/header" %>
+	<div class="wrapper wrapper-content">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<!-- <span class="label label-info pull-right">Annual</span> -->
+						<h5>Total Admin</h5>
+					</div>
+					<div class="ibox-content">
+						<h1 class="no-margins"><%= @total_admins.size %></h1>
+						<div class="stat-percent font-bold text-info">
+						<%= link_to admin_list_url do%>
+							More info <i class="fa fa-arrow-circle-right"></i>
+						<% end %>
+						</div>
+						<small>Active Admin</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<!-- <span class="label label-danger pull-right">Low value</span> -->
+						<h5>Total Customer</h5>
+					</div>
+					<div class="ibox-content">
+						<h1 class="no-margins"><%= @total_customer.size %></h1>
+						<div class="stat-percent font-bold text-danger"><%= link_to admin_user_list_url(:type => "2") do%>
+							More info <i class="fa fa-arrow-circle-right"></i>
+						<% end %></div>
+						<small>Customer</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%= render "admin/includes/footer" %>
+</div>
+

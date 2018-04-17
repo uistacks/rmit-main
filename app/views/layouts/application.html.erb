@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><%= full_title(yield(:title))%></title>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,greek,greek-ext,vietnamese,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' />
+	<%= stylesheet_link_tag    'front/application', media: 'all', 'data-turbolinks-track' => true %>
+	<%#= javascript_include_tag 'front/application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'front/jquery.min.js' %>
+	<%= csrf_meta_tags %>
+</head>
+<body>
+	<%= render "front/includes/header" %>
+
+	<%= yield %>
+	<%= render "front/includes/footer" %>
+	<%= stylesheet_link_tag 'toastr.min.css' %>
+  <style type="text/css">
+    #toast-container > div.toast {
+      background-image: none !important;
+  }
+  </style>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      // Override global options
+      <% if flash[:success] %>
+      toastr.success('<%= flash[:success] %>', 'Success', {timeOut: 0,extendedTimeOut: 60000, closeButton: true,"positionClass": "toast-bottom-right"})
+      <% elsif flash[:error] %>
+      toastr.error('<%= flash[:error] %>', 'Error', {timeOut: 0,extendedTimeOut: 60000, closeButton: true,"positionClass": "toast-bottom-right"})
+      <% elsif flash[:warning] %>
+      toastr.warning('<%= flash[:warning] %>', 'Warning', {timeOut: 0,extendedTimeOut: 60000, closeButton: true,"positionClass": "toast-bottom-right"})
+      <% elsif flash[:info] %>
+      toastr.info('<%= flash[:info] %>', 'Warning', {timeOut: 0,extendedTimeOut: 60000, closeButton: true,"positionClass": "toast-bottom-right"})
+      <% end %>
+    });
+  </script>
+  <%= javascript_include_tag 'toastr.min.js' %>
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+<% provide(:title, "Admin") %>
+<div id="page-wrapper" class="gray-bg">
+	<%= render "admin/includes/header" %>
+	<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2></h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= admin_dashboard_url %>">Dashboard</a>
+        </li>
+        <li>
+					<a href="<%= admin_list_url %>">Manage Admin</a>
+				</li>
+				<li class="active">
+					<strong>Add Admin</strong>
+				</li>
+      </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Add Admin</h5>
+                            <!-- <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div> -->
+                        </div>
+                        <div class="ibox-content">
+                          <%= form_for(:user, url: admin_create_url ,:html=>{:class=>"form-horizontal",:name=>'frm_create_admin',:id=>'frm_create_admin'}) do |f| %>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">First Name<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.text_field :first_name, class: 'form-control', :value => '', id: 'first_name' %>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Last Name<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.text_field :last_name, class: 'form-control', :value => '', id: 'last_name' %>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Username<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.text_field :username, class: 'form-control', :value => '', id: 'username' %>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Email ID<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.text_field :user_email, class: 'form-control', :value => '', id: 'user_email' %>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Password<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.password_field :password, class: 'form-control', :value => '', id: 'password' %>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Confirm Password<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+                              <%= f.password_field :confirmation, class: 'form-control', :value => '', id: 'confirmation' %>
+                            </div>
+                          </div>
+													<div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">User Role<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-10">
+															<%= f.select :role_name, options_for_select(MstRole.where.not(:id => [1,2]).map{|l| [l.name, l.id]}), {:include_blank => "Select Role"}, {:class=>"form-control"}%>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div>
+                          <!-- <div class="form-group">
+                            <label class="col-sm-2 control-label">User Status</label>
+                            <div class="col-sm-10">
+                              <%= f.select(:user_status, options_for_select([["Active", "1"], ["Inactive", "0"], ["Banned", "2"]],"1"),{}, class: 'form-control')%>
+                            </div>
+                          </div>
+                          <div class="hr-line-dashed"></div> -->
+                          <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                              <!-- <button type="submit" class="btn btn-white">Cancel</button>
+                              <button type="submit" class="btn btn-primary">Save changes</button> -->
+                              <%= f.submit "Save Changes", class: "btn btn-primary",id:"btnSubmit" %>
+                            </div>
+                          </div>
+                        <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	</div>
+	<%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+	$(document).ready(function(){
+    $("#frm_create_admin").validate({
+      onkeyup: false,
+      errorElement: "div",
+      errorClass: "text-danger",
+      rules: {
+        'user[first_name]': {
+          required : true
+        },
+        'user[last_name]': {
+          required : true
+        },
+        /*'user[address]': {
+          required : true
+        },
+        'user[zip_code]': {
+          required : true
+        },*/
+        'user[user_email]': {
+          required : true,
+          email:true,
+          remote:{
+            url:"<%= admin_check_user_email_url %>",
+            method:"get"
+          }
+        },
+        'user[username]': {
+          required : true,
+          remote:{
+            url:"<%= admin_check_user_name_url %>",
+            method:"get"
+          }
+        },
+        /*'user[phone_number]': {
+          required : true
+        },
+        'user[country_id]':{
+          required:true
+        },
+        'user[state_id]':{
+          required:true
+        },
+        'user[city_id]':{
+          required:true
+        },*/
+        "user[password]":{
+          required:true,
+          minlength: 8
+        },
+        "user[confirmation]":{
+          required:true,
+          equalTo:'#password'
+        },
+        'user[role_name]':{
+          required:true
+        },
+        'user[user_status]':{
+          required:true
+        }
+      },
+      messages: {
+        'user[first_name]': {
+          required: "Please enter first name."
+        },
+        'user[last_name]': {
+          required: "Please enter last name."
+        },
+        /*'user[address]': {
+          required: "Please enter address."
+        },
+        'user[zip_code]': {
+          required: "Please enter your zip code."
+        },*/
+        'user[user_email]': {
+          required: "Please enter your email.",
+          email:"Please enter a valid email.",
+          remote:"Entered email already exists."
+        },
+        'user[username]': {
+          required: "Please enter your username.",
+          remote:"Entered username already exists."
+        },
+        /*'user[phone_number]': {
+          required: "Please enter your phone number."
+        },
+        'user[country_id]':{
+          required: "Please select country."
+        },
+        'user[state_id]':{
+          required: "Please select state."
+        },
+        'user[city_id]':{
+          required: "Please select city."
+        },*/
+        "user[password]":{
+          required:"Please enter password.",
+          minlength:"Please enter atleast 8 characters."
+        },
+        "user[confirmation]":{
+          required:"Please enter the confirm password.",
+          equalTo:"Password and confirm password do not match."
+        },
+        'user[role_name]':{
+          required:"Please select a role."
+        },
+        'user[user_status]':{
+          required:"Please select user status."
+        }
+      },
+      submitHandler: function(form) {
+        // do other things for a valid form
+				$('#btnSubmit').attr("disabled","disabled");
+				$('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+					form.submit();
+					return true;
+      }
+    });
+	});
+</script>

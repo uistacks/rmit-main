@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="card card-container">
+    <!--<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />-->
+    <h2 class="text-center">SignUp</h2>
+    <p id="profile-name" class="profile-name-card"></p>
+    <%= form_for(:signup, url: signup_create_url, :html=>{:class=>'form-signin',:name=>'frm_signup',:id=>'frm_signup'}) do |f| %>
+        <span id="reauth-email" class="reauth-email"></span>
+        <%= f.text_field :first_name, class: 'form-control', id: 'first_name', value: '', placeholder:'First Name' %>
+        <%= f.text_field :last_name, class: 'form-control', id: 'last_name', value: '', placeholder:'Last Name' %>
+        <%= f.text_field :username, class: 'form-control', id: 'username', value: '', placeholder:'Username' %>
+        <%= f.text_field :user_email, class: 'form-control', id: 'user_email', value: '', placeholder:'Email Address' %>
+        <%= f.password_field :password, class: 'form-control' , placeholder:'Password'%>
+        <%= f.password_field :confirm_password, class: 'form-control', id: 'confirm_password', placeholder:'Confirm Password'%>
+
+        <%= f.submit "Register", class: "btn btn-lg btn-primary btn-block btn-signin",id:"btnSubmit" %>
+    <% end %>
+    <!-- /form -->
+  </div><!-- /card-container -->
+</div><!-- /container -->
+
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<script>
+    $(document).ready(function(){
+        $("#frm_signup").validate({
+            onkeyup: false,
+            errorElement: "div",
+            errorClass: "text-danger",
+            rules: {
+                'signup[first_name]': {
+                    required : true
+                },
+                'signup[last_name]': {
+                    required : true
+                },
+                'signup[address]': {
+                    required : true
+                },
+                'signup[user_email]': {
+                    required : true,
+                    email:true,
+                    remote:{
+                        url:"<%= check_user_email_url %>",
+                        method:"get"
+                    }
+                },
+                'signup[username]': {
+                    required : true,
+                    remote:{
+                        url:"<%= check_user_name_url %>",
+                        method:"get"
+                    }
+                },
+                'signup[phone_number]': {
+                    required : true
+                },
+                "signup[password]":{
+                    required:true,
+                    minlength: 8
+                },
+                "signup[confirm_password]":{
+                    required:true
+                    // equalTo:'#password'
+                }
+            },
+            messages: {
+                'signup[first_name]': {
+                    required: "Please enter first name."
+                },
+                'signup[last_name]': {
+                    required: "Please enter last name."
+                },
+                'signup[address]': {
+                    required: "Please enter address."
+                },
+                'signup[user_email]': {
+                    required: "Please enter your email.",
+                    email:"Please enter a valid email.",
+                    remote:"Entered email already exists."
+                },
+                'signup[username]': {
+                    required: "Please enter your username.",
+                    remote:"Entered username already exists."
+                },
+                'signup[phone_number]': {
+                    required: "Please enter your phone number."
+                },
+                "signup[password]":{
+                    required:"Please enter password.",
+                    minlength:"Please enter atleast 8 characters."
+                },
+                "signup[confirm_password]":{
+                    required:"Please enter the confirm password."
+                    // equalTo:"Password and confirm password do not match."
+                }
+            },
+            submitHandler: function(form) {
+                // do other things for a valid form
+                $('#btnSubmit').attr("disabled","disabled");
+                $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+                form.submit();
+                return true;
+            }
+        });
+    });
+</script>

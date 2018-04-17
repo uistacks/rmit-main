@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= full_title(yield(:title))%></title>
+  <%= stylesheet_link_tag    'admin/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'admin/application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div id="wrapper">
+    <%# if segment(2).to_s != "admin-login" or segment(2).to_s != "forgot-password" %>
+    <% if session[:user_id].nil? == false %>
+    <%= render "admin/includes/leftnav" %>
+    <% end %>
+    <%= yield %>
+  </div>
+  <%= render "admin/includes/rightsidebar" %>
+  <%= javascript_include_tag 'admin/app.js' %>
+  <%= stylesheet_link_tag 'toastr.min.css' %>
+  <style type="text/css">
+    #toast-container > div.toast {
+      background-image: none !important;
+  }
+  </style>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      // Override global options
+      <% if flash[:success] %>
+      toastr.success('<%= flash[:success] %>', 'Success', {timeOut: 0,extendedTimeOut: 60000, closeButton: true})
+      <% elsif flash[:error] %>
+      toastr.error('<%= flash[:error] %>', 'Error', {timeOut: 0,extendedTimeOut: 60000, closeButton: true})
+      <% elsif flash[:warning] %>
+      toastr.warning('<%= flash[:warning] %>', 'Warning', {timeOut: 0,extendedTimeOut: 60000, closeButton: true})
+      <% elsif flash[:info] %>
+      toastr.info('<%= flash[:info] %>', 'Warning', {timeOut: 0,extendedTimeOut: 60000, closeButton: true})
+      <% end %>
+    });
+  </script>
+  <%= javascript_include_tag 'toastr.min.js' %>
+</body>
+</html>

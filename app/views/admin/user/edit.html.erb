@@ -1,0 +1,379 @@
+<style type="text/css">
+  .avatar-source img, .btn-upload {
+    width: 120px;
+  }
+  .avatar-source, .avatar-wrapper, .btn-upload {
+    text-align: center;
+  }
+  .btn-upload {
+    border-radius: 50%;
+    color: #ccc;
+    font-size: 65px;
+    height: 120px;
+    overflow: hidden;
+    padding: 6px 0;
+    position: relative;
+  }
+  .btn-circle, .btn-upload {
+    line-height: 1.42857;
+  }
+  .btn-default {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+  }
+  .btn-upload input[type="file"] {
+    background: #fff none repeat scroll 0 0;
+    cursor: inherit;
+    display: block;
+    font-size: 100px;
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    outline: 0 none;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+  }
+  .avatar-source p {
+    font-weight: 700;
+    margin: 5px 0 0;
+  }
+  .avatar-source div:hover, .avatar-source img:hover {
+    background-color: #fff;
+    border: 2px solid #555;
+    cursor: pointer;
+  }
+  .avatar-controls {
+    display: none;
+  }
+  .avatar-wrapper .avatar-preview {
+    margin-bottom: 30px;
+    margin-top: 10px;
+  }
+  .avatar-preview {
+    height: 160px;
+    width: 160px;
+  }
+</style>
+<% provide(:title, "User") %>
+<%= stylesheet_link_tag 'croppie' %>
+<div id="page-wrapper" class="gray-bg">
+  <%= render "admin/includes/header" %>
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2></h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= admin_dashboard_url %>">Dashboard</a>
+        </li>
+        <li>
+          <a href="<%= admin_user_list_url(:type => @user_type) %>">Manage <%= @page_title %></a>
+        </li>
+        <li class="active">
+          <strong>Update <%= @page_title %></strong>
+        </li>
+      </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Update <%= @page_title %></h5>
+          </div>
+
+          <ul role="tablist" class="nav nav-tabs">
+            <li role="presentation" class="active">
+              <a data-toggle="tab" role="tab" aria-controls="details" href="#details" aria-expanded="false">
+                <i class="glyphicon glyphicon-th"></i>
+                Personal Information
+              </a>
+            </li>
+            <li role="presentation" class="">
+              <a data-toggle="tab" role="tab" aria-controls="auth" href="#auth" aria-expanded="true">
+                <i class="fa fa-lock"></i>
+                Account Setting
+              </a>
+            </li>
+          </ul>
+          <hr/>
+          <div class="tab-content">
+            <div id="details" class="tab-pane active" role="tabpanel">
+              <div class="row">
+                <div class="col-lg-8 col-md-7">
+                  <%= form_for(:edit_user, url: admin_user_update_url(:type => @user_type) ,:html=>{:class=>"",:name=>'frm_update_user',:id=>'frm_update_user'}) do |f| %>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">Personal Information</div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="first_name">First Name<span class="text-danger">*</span>:</label>
+                            <%= f.text_field :first_name, class: 'form-control', :value => @user.first_name, id: 'first_name' %>
+                          </div>
+                          <div class="form-group">
+                            <label for="first_name">Username<span class="text-danger">*</span>:</label>
+                            <%= f.text_field :username, class: 'form-control', :value => @user.user_name, id: 'username' %>
+                            <%= f.hidden_field :old_user_name,  :value=> @user.user_name %>
+                          </div>
+                          <div class="form-group">
+                            <label for="user_status">Status</label>
+                            <%= f.select(:user_status, options_for_select([["Active", "1"], ["Inactive", "0"], ["Banned", "2"]], @user.user_status),{}, class: 'form-control')%>
+                          </div>
+                          <% if @user_type == "3" %>
+                          <div class="form-group">
+                            <label for="last_name">Promotor Commision<span class="text-danger">*</span>:</label>
+                              <%= f.text_field :commision, class: 'form-control', :value => @user.promoter_commision, id: 'phone_no' %>
+                              <strong>In percentage(%)</strong>
+                          </div>
+                          <% end %>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="last_name">Last Name<span class="text-danger">*</span>:</label>
+                            <%= f.text_field :last_name, class: 'form-control', :value => @user.last_name, id: 'last_name' %>
+                          </div>
+                          <div class="form-group">
+                            <label for="status">Email ID<span class="text-danger">*</span>:</label>
+                            <%= f.text_field :user_email, class: 'form-control', :value => @user.user_email, id: 'user_email' %>
+                            <%= f.hidden_field :old_user_email, :value=>@user.user_email %>
+                          </div>
+                          <% if @user_type == "3" %>
+                          <div class="form-group">
+                            <label for="last_name" >Promocode Status<span class="text-danger">*</span>:</label>
+                              <%= f.select(:promocode_privacy, options_for_select([["Active", "1"], ["Inactive", "0"]],@user.promocode_privacy),{}, class: 'form-control')%>
+                          </div>
+                          <% end %>
+                        </div>
+                        <div class="col-md-12">
+                          <%= f.submit "Save Changes", class: "btn btn-primary",id:"btnSubmit" %>
+                          <%= f.hidden_field :edit_id,  :value=> @user.id %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% end %>
+                </div>
+
+                <div class="col-lg-4 col-md-5">
+                  <%= form_for(:update_photo, url: admin_user_update_photo_url(:user_id => @user.id, :type => @user_type) ,:html=>{:class=>"",:name=>'frm_update_photo',:id=>'avatar-form',:multipart => true}) do |p| %>
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Avatar</div>
+                      <div class="panel-body avatar-wrapper">
+                        <div class="spinner">
+                          <div class="spinner-dot"></div>
+                          <div class="spinner-dot"></div>
+                          <div class="spinner-dot"></div>
+                        </div>
+                        <div id="avatar"></div>
+                        <div>
+                        <% if @user.profile_picture.nil? or @user.profile_picture == "No" %>
+                          <%= image_tag("admin/user.png", :alt => "image", :class=>"avatar-preview img-circle") %>
+                          <% elsif @user.profile_picture == "GA" %>
+                            <%= image_tag("admin/gravatar.jpg", :alt => "image", :class=>"avatar-preview img-circle") %>
+                          <% else %>
+                            <img class="avatar-preview img-circle" src="/user/profile/<%= @user.profile_picture %>" onerror="this.src='/assets/img/user.png'" />
+                          <% end %>
+                          <div data-target="#choose-modal" data-toggle="modal" class="btn btn-default btn-block" id="change-picture">
+                            <i class="fa fa-camera"></i>
+                            Change Photo
+                          </div>
+                          <div class="row avatar-controls" >
+                            <div class="col-md-6">
+                              <div class="btn btn-block btn-danger" style="text-align: center;" id="cancel-upload">
+                                <i class="fa fa-times"></i> Cancel
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <button class="btn btn-success btn-block" style="text-align: center;" id="save-photo" type="button">
+                                <i class="fa fa-check"></i> Save
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="choose-modal" class="modal fade">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-body">
+                            <div class="row">
+                              <div onclick="window.location.href='<%= admin_user_update_default_photo_url(:user_id=> Base64.encode64(@user.id.to_s), :p_type => "No", :type => @user_type) %>'" id="no-photo" class="col-md-4 avatar-source">
+                                <%= image_tag("admin/user.png", :alt => "image", :class=>"img-circle") %>
+                                <p>No Photo</p>
+                              </div>
+                              <div class="col-md-4 avatar-source">
+                                <div class="btn btn-default btn-upload">
+                                  <i class="fa fa-upload"></i>
+                                  <!-- <input type="file" id="avatar-upload" name="avatar"> -->
+                                  <%= p.file_field :avatar, id: "avatar-upload" %>
+                                </div>
+                                <p>Upload Photo</p>
+                              </div>
+                              <div onclick="window.location.href='<%= admin_user_update_default_photo_url(:user_id=> Base64.encode64(@user.id.to_s), :p_type => "GA", :type => @user_type) %>'" class="col-md-4 avatar-source source-external">
+                                <%= image_tag("admin/gravatar.jpg", :alt => "image", :class=>"img-circle") %>
+                                <p>Gravatar</p>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="display: none;">
+                      <%= p.hidden_field "imagebase64",:id=>"imagebase64" %>
+                      <%= p.hidden_field :user_id,  :value=> @user.id %>
+                    </div>
+                    <% end %>
+                </div>
+</div>
+</div>
+<div id="auth" class="tab-pane" role="tabpanel">
+  <div class="row">
+    <div class="col-md-8">
+      <%= form_for(:user_pass, url: admin_update_user_password_url(:type => @user_type) ,:html=>{:class=>"",:name=>'frm_update_password',:id=>'frm_update_password'}) do |f| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">Account Setting</div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <%= f.text_field :user_email, class: 'form-control', :value => @user.user_email, id: 'user_email', readonly: 'readonly' %>
+          </div>
+          <div class="form-group">
+            <label for="password">New Password<span class="text-danger">*</span>:</label>
+            <%= f.password_field :password, class: 'form-control', :value => '', id: 'password' %>
+          </div>
+          <div class="form-group">
+            <label for="password">Confirm Password<span class="text-danger">*</span>:</label>
+            <%= f.password_field :confirmation, class: 'form-control', :value => '', id: 'confirmation' %>
+          </div>
+          <%= f.submit "Save Changes", class: "btn btn-primary",id:"btnUpdate" %>
+          <%= f.hidden_field :edit_id,  :value=> @user.id %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<%= render "admin/includes/footer" %>
+</div>
+<%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
+<%= javascript_include_tag 'croppie' %>
+<%= javascript_include_tag 'admin/profile' %>
+<script>
+$(document).ready(function(){
+  $("#frm_update_user").validate({
+    onkeyup: false,
+    errorElement: "div",
+    errorClass: "text-danger",
+    rules: {
+      'edit_user[first_name]': {
+        required : true
+      },
+      'edit_user[last_name]': {
+        required : true
+      },
+      'edit_user[user_email]': {
+        required : true,
+        email:true,
+        remote:{
+          url:"<%= admin_check_edit_user_email_url %>",
+          method:"get",
+          data:{"edit_user[old_user_email]":$("#edit_user_old_user_email").val()}
+        }
+      },
+      'edit_user[username]': {
+        required : true,
+        remote:{
+          url:"<%= admin_check_edit_username_url %>",
+          method:"get",
+          data:{"edit_user[old_user_name]":$("#edit_user_old_user_name").val()}
+        }
+      },
+        "edit_user[commision]":{
+          required:true,
+          number: true,
+          max: 100
+
+        },
+        "edit_user[commision_status]":{
+          required:true
+        }
+    },
+    messages: {
+      'edit_user[first_name]': {
+        required: "Please enter first name."
+      },
+      'edit_user[last_name]': {
+        required: "Please enter last name."
+      },
+      'edit_user[user_email]': {
+        required: "Please enter your email.",
+        email:"Please enter a valid email.",
+        remote:"Entered email already exists."
+      },
+      'edit_user[username]': {
+        required: "Please enter your username.",
+        remote:"Entered username already exists."
+      },
+      "edit_user[commision]":{
+        required:"Please enter commision",
+        number: "Please enter only digits",
+        max: "Commision should be less than or equal to 100"
+
+      },
+      "edit_user[commision_status]":{
+        required:"Please select promocode privacy"
+      }
+    },
+    submitHandler: function(form) {
+      $('#btnSubmit').attr("disabled","disabled");
+      $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+      form.submit();
+      return true;
+    }
+  });
+  $("#frm_update_password").validate({
+    onkeyup: false,
+    errorElement: "div",
+    errorClass: "text-danger",
+    rules: {
+      "user_pass[password]":{
+        required:true,
+        minlength: 8
+      },
+      "user_pass[confirmation]":{
+        required:true,
+        equalTo:'#password'
+      }
+    },
+    messages: {
+      "user_pass[password]":{
+        required:"Please enter password.",
+        minlength:"Please enter atleast 8 characters."
+      },
+      "user_pass[confirmation]":{
+        required:"Please enter the confirm password.",
+        equalTo:"Password and confirm password do not match."
+      }
+    },
+    submitHandler: function(form) {
+      $('#btnUpdate').attr("disabled","disabled");
+      $('#btnUpdate').html("<i class='fa fa-spinner fa-spin'></i>");
+      form.submit();
+      return true;
+    }
+  });
+});
+</script>

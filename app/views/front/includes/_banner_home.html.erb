@@ -1,0 +1,254 @@
+<div class="banner relative">
+<script type="text/javascript">
+		$(document).ready(function () {
+			$('#play').hide();
+			var video = document.getElementById('video1');
+			var vid = document.getElementById("video1");
+			vid.loop = true;
+			function resize(){
+				// var heights = window.innerHeight;
+				// document.getElementById("video-cover").style.height = heights + 1 + "px";
+			}
+			resize();
+			window.onresize = function () {
+				resize();
+			};
+		});
+	</script>
+    <div id="video-cover" class="video-cover">
+	<video id="video1" class="video-js vjs-default-skin" controls preload="none" data-setup="{}" style="width:100%; top:0; left:0; z-index:-10;" poster="assets/front/videos/home-banner.gif" autoplay loop>
+	<source src="assets/front/videos/home-banner.mp4" type="video/mp4">
+	</video>
+	<%#=
+		video_tag(["shutterstock_v6773806.mp4", "video/Nigeria Forward - Engaging the World in Business.webm"],id: "video1", class: "video-js vjs-default-skin", :preload => "none",controls: "",:autoplay => "", style: "width:100%; top:0; eft:0; z-index:-10;")
+	%>
+	</div>
+		<% @categories = TransCategory
+            .joins('INNER JOIN mst_categories as c on c.id = trans_categories.category_id_fk')
+            .select('c.id,c.slug',:category_icon,:category_name,:category_name_ch,'c.parent_id')
+            .where(:lang_id => "17",'c.parent_id' => 0)
+            .order(:id => 'asc' )
+        %>
+		<div class="banner-content">
+			<div class="container">
+				<div class="banner-content-text text-center">
+					<div class="banner-block-ttl">
+						<%= t("Which_product_will_you_take_for_your_Journey") %>
+					</div>
+					<% if  @categories.nil? == false  %>
+					<ul class="banner-block-list">
+					<% @categories.each do |cat| %>
+						<li class="cat-<%= cat.id.to_i %>">
+							<div class="b-img">
+								<a href="javascript:;">
+								<%= image_tag("/category_icon/"+(cat.category_icon), :alt => "image") %>
+								</a>
+							</div>
+							<div class="b-ttl text-center">
+								<% if cat.category_name == "Study" %>
+								<span class="i-school"></span>
+								<% if current_lang_id == "17" %>
+									<%= cat.category_name %>
+								<% else %>
+									<%= cat.category_name_ch %>
+								<% end %>	
+								<% elsif cat.category_name == "Working" %>
+								<span class="i-business2"></span>
+								<% if current_lang_id == "17" %>
+									<%= cat.category_name %>
+								<% else %>
+									<%= cat.category_name_ch %>
+								<% end %>
+								<% else %>
+								<span class="i-flying"></span>
+								<% if current_lang_id == "17" %>
+									<%= cat.category_name %>
+								<% else %>
+									<%= cat.category_name_ch %>
+								<% end %>
+								<% end %>
+							</div>
+						</li>
+					<% end %>
+					</ul>
+					<% end %>
+					<div class="banner-form">
+						    <%= form_for(:product, url: front_product_list_url,:html=>{:name=>'frm_product',:id=>'frm_product',:autocomplete => "off", :class=>"form-inline", :method => 'GET'}) do |f| %>
+							<div class="form-group pad-z">
+								<div class="cust-select">
+									<% if current_lang_id =="17" %>
+                    <%= f.select :category_id, options_for_select(TransCategory.joins('INNER JOIN mst_categories as c on c.id = trans_categories.category_id_fk').where('c.parent_id' => "1",:lang_id => 17).map{|p| [p.category_name, p.category_id_fk]}), {:include_blank => t("select_visa_type")}, {:class=>"form-control"} %>
+                    <% else %>
+                      <%= f.select :category_id, options_for_select(TransCategory.joins('INNER JOIN mst_categories as c on c.id = trans_categories.category_id_fk').where('c.parent_id' => "1",:lang_id => 17).map{|p| [p.category_name, p.category_id_fk]}), {:include_blank => t("select_visa_type")}, {:class=>"form-control"} %>
+                    <% end %>
+                    <%= f.hidden_field :current_lang_id_val, class: 'form-control', :value => current_lang_id, id: 'current_lang_id_val' %>
+								</div>
+							</div>
+							<span class="" id="working-type" >
+								<div class="form-group arrow-line">
+									<div class="main-b-family">
+										<select class="family-list" id="demo-htmlselect-basic" name="family_type">
+											<option value=""><%= t("type_of_family") %></option>
+											<option data-description="" data-imagesrc="assets/front/img/single-user.png" value="1"><%= t("single") %></option>
+											<option data-description="" data-imagesrc="assets/front/img/multiple-users3.png" value="2"><%= t("couple") %></option>
+											<option data-description="" data-imagesrc="assets/front/img/multiple-users.png" value="3"><%= t("family") %></option>
+											<option data-description="" data-imagesrc="assets/front/img/multiple-users3.png" value="4"><%= t("single_parent_family") %></option>
+										</select>
+									</div>
+								</div>
+								<!--<div class="form-group arrow-line">-->
+                  <!--<div class="cust-select">-->
+                    <!--<%= f.select(:duration, options_for_select([[t("select_duration"),""],[t("single"),"single"],[t("quartly"),"quartly"],[t("half_year"),"half_year"],[t("year"),"year"]]),{},:class=>"form-control") %>-->
+                  <!--</div>-->
+                <!--</div>-->
+                </span>
+                        <div class="form-group arrow-line">
+                        	<!-- <input type="text" class="form-control" id ="datepicker1" name="from_date" placeholder="Start Date"> -->
+                        	<%= f.text_field :from_date, class: 'form-control', :value => '', :readonly => "true", id: 'datepicker1',placeholder: t("start_date_plc") %>
+
+                        </div>
+				            		<div class="form-group arrow-line">
+                         	<!-- <input type="text" class="form-control" id ="datepicker2" name="to_date" placeholder="End Date"> -->
+                        	<%= f.text_field :to_date, class: 'form-control', :value => '', :readonly => "true", id: 'datepicker2',placeholder: t("end_date_plc") %>
+                        </div>
+                        <%= f.submit t("get_a_quote"), class: "btn btn-orange",id:"btnSubmit" %>
+                        <!-- <button type="submit" class="btn btn-orange">Get a Quote</button> -->
+                    <% end %>
+                </div>
+                
+            </div>
+			
+
+        </div>
+    </div>
+	<div class="start-icon wow bounceInUp">
+  	<a href="#" data-scroll-nav="0">
+  	<%= image_tag("front/img/start-icon.png", :title => "", :alt => "image") %>
+  	</a>
+  </div>
+</div>
+<%= stylesheet_link_tag 'front/custom-dropdown.css' %>
+<%= javascript_include_tag 'front/jquery-ui' %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    /*$('.cat-2, .cat-3').on('click',function(){
+      $('#working-type').show();
+    });
+    $('.cat-1').on('click',function(){
+      $('#working-type').hide();
+    });*/
+    $("#datepicker1").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: "yy-m-d",
+      minDate: '0',
+      onSelect: function (selected) {
+        var dt = new Date(selected);
+        dt.setDate(dt.getDate() + 1);
+        $("#datepicker2").datepicker("option", "minDate", dt);
+      },
+      onClose: function() {
+        $('#datepicker1').valid();
+      }
+    });
+    $("#datepicker2").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: "yy-m-d",
+      minDate: '0',
+      onSelect: function (selected) {
+        var dt = new Date(selected);
+        dt.setDate(dt.getDate() - 1);
+        $("#datepicker1").datepicker("option", "maxDate", dt);
+      },
+      onClose: function() {
+        $('#datepicker2').valid();
+      }
+    });
+    $('.cat-1 a').addClass('active');
+   $('.cat-2, .cat-3,.cat-1').on('click',function(){
+     $('.cat-1 a').removeClass('active');
+     $('.cat-2 a').removeClass('active');
+     $('.cat-3 a').removeClass('active');
+    	if($(this).hasClass('cat-1')) {
+			var cat_id =1;
+        $('.cat-1 a').addClass('active');
+		}  else if($(this).hasClass('cat-2')) {
+			var cat_id = 2;
+        $('.cat-2 a').addClass('active');
+		}  else if($(this).hasClass('cat-3')) {
+			var cat_id =3;
+        $('.cat-3 a').addClass('active');
+		}
+		var lang_id = $('#current_lang_id_val').val();
+    	$.ajax({
+    		type:"GET",
+    		url:"<%= get_subcategory_url %>",
+    		dataType:"html",
+    		data: {cat_id: cat_id, lang_id: lang_id},
+    		success:function(response){
+    			if(response != ''){
+    				$("#product_category_id").html(response);
+    			}
+    		}
+    	});
+    });
+    $("#frm_product").validate({
+      errorPlacement: function(){
+        return false;
+      },
+      onkeyup: false,
+      onfocusout: function (element) {
+        $(element).valid();
+      },
+      rules: {
+        'product[category_id]': {
+          required : true
+        },
+        /*family_type: {
+//          required : true
+            valueNotEquals: "default"
+        },*/
+        'product[duration]':{
+          required : true
+        },
+        'product[from_date]':{
+          required : true
+        },
+        'product[to_date]':{
+          required : true
+        }
+      },
+      messages: {
+        'product[category_id]': {
+          required : "<%= t("banner_category_id_val") %>"
+        },
+        /*family_type: {
+          valueNotEquals : "<%#= t("banner_family_type_val") %>"
+        },*/
+        'product[duration]':{
+          required : "<%= t("banner_duration_val") %>"
+        },
+        'product[from_date]':{
+          required : "<%= t("banner_from_date_val") %>"
+        },
+        'product[to_date]':{
+          required : "<%= t("banner_end_date_val") %>"
+        }
+      },
+      submitHandler: function(form) {
+        if($('.dd-selected-value').val() != "") {
+            $('.dd-container').removeClass('error');
+            $('.dd-container').addClass('valid');
+            $('#btnSubmit').attr("disabled","disabled");
+            $('#btnSubmit').html("<i class='fa fa-spinner fa-spin'></i>");
+            form.submit();
+            return true;
+        }else{
+            $('.dd-container').addClass('error');
+            return false;
+        }
+      }
+    });
+  });
+</script>
