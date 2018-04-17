@@ -12,8 +12,10 @@
         <%= f.submit "Submit", class: "btn btn-lg btn-primary btn-block btn-signin",id:"btnSubmit" %>
     <% end %>
     <!-- /form -->
-  </div><!-- /card-container -->
-</div><!-- /container -->
+  </div>
+  <!-- /card-container -->
+</div>
+<!-- /container -->
 
 <%= javascript_include_tag 'admin/jquery.validate-1.14.0' %>
 <script>
@@ -41,20 +43,8 @@
                 'news[description]': {
                     required: "Please enter news description."
                 },
-                'news[address]': {
-                    required: "Please enter address."
-                },
-                'news[user_email]': {
-                    required: "Please enter your email.",
-                    email:"Please enter a valid email.",
-                    remote:"Entered email already exists."
-                },
-                'news[username]': {
-                    required: "Please enter your username.",
-                    remote:"Entered username already exists."
-                },
-                'news[phone_number]': {
-                    required: "Please enter your phone number."
+                'news[url]': {
+                    url: "Please enter a valid URL."
                 }
             },
             submitHandler: function(form) {
